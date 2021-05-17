@@ -3,5 +3,5 @@
 
 int main(int argv, char* argc[])
 {
-    auto win = std::make_unique<Window>("Mario", 800, 600);
+    auto window = std::make_unique<smb::Window>("Super Mario Brothers clone", 800, 600);
 }

@@ -1,13 +1,17 @@
+// make texture an implementation detail
+
 ```plantuml
+
 
 @startuml
 
 Renderable *-- Vec2
 Renderable *-- Tex
 
+
+
 interface Renderable {
     #m_position : Vec2
-    #m_texture : std::variant<Tex, std::vector<Tex>, std::vector<std::vector<Tex>>>
     #m_isSolid : const bool
     +render(dt : float) : void
 }
@@ -41,7 +45,7 @@ class Player {
     -m_isJumping : bool
     -m_lives : unsigned
     -m_alive : bool
-    +Player(position : Vec2, texture : std::vector<Tex>, solid : bool, box : Rect)
+    +Player(position : Vec2, texture : Frames, boundingBox : Rect)
     +render(dt: float) : void
     +update(dt: float) : void
 }
@@ -56,7 +60,7 @@ Game *-- Window
 Game *-- Player
 
 class Game {
-    -m_players : std::pair<std::optional<Player>>
+    -m_players : std::pair<Player, std::optional<Player>>
     -Window : const Window
     +update(dt : float) : void
     +render(dt : float) : void

@@ -1,5 +1,4 @@
 
-
 add_executable(
     Mario 
     Command.cpp
@@ -8,9 +7,7 @@ add_executable(
     ../include/Command.hpp
     ../include/Game.hpp
     ../include/Util.hpp
-    ../include/Vec2.hpp
 )
-
 
 target_compile_features(Mario PUBLIC cxx_std_17)
 

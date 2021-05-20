@@ -4,10 +4,9 @@ add_executable(
     Command.cpp
     Game.cpp
     main.cpp
-    ../include/Command.hpp
-    ../include/Game.hpp
-    ../include/Util.hpp
 )
+
+target_compile_options(Mario PRIVATE -Wall -Wextra -Wpedantic -Wnull-dereference)
 
 target_compile_features(Mario PUBLIC cxx_std_17)
 

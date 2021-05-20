@@ -72,8 +72,7 @@ namespace smb
             m_playing = false;
             break;
         case SDL_KEYDOWN:
-            auto command = handleKeyInput(event);
-            if(command != nullptr)
+            if(auto* command = handleKeyInput(event);  command != nullptr)
             {
                 command->execute();
             }
@@ -81,16 +80,16 @@ namespace smb
         }
     }
 
-    std::shared_ptr<Command> Game::handleKeyInput(SDL_Event& event)
+    Command* Game::handleKeyInput(SDL_Event& event)
     {
         switch (event.key.keysym.sym)
         {
         case SDLK_ESCAPE:
-            return m_escCommand;
+            return m_escCommand.get();
         case SDLK_d:
-            return m_dCommand;
+            return m_dCommand.get();
         case SDLK_a:
-            return m_aCommand;
+            return m_aCommand.get();
         default:
             return nullptr; 
         }

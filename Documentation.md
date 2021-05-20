@@ -50,20 +50,28 @@ class Player {
     +update(dt: float) : void
 }
 
-class Window {
-    -m_dims : Vec2
-    -Window()
-    +{static}make_window(dims) : Window
+class Input {
+    -handleKeyInput(event : SDL_Event&) : void
+    +handleInput(event : SDL_Event&) : void
 }
 
-Game *-- Window
 Game *-- Player
+Game *-- Input
 
 class Game {
     -m_players : std::pair<Player, std::optional<Player>>
-    -Window : const Window
+    -m_width : unsigned
+    -m_height : unsigned
+    -m_title : std::string
+    -m_window : SDL_Window*
+    -m_surface : SDL_Surface*
+    -{static}instantiated : bool
+    -m_playing : std::atomic<bool>
+    +~Game()
+    +Game(title : const std::string, width : unsigned, height : unsigned)
     +update(dt : float) : void
     +render(dt : float) : void
+    +keyMap() : const KeyMap
 }
 
 @enduml

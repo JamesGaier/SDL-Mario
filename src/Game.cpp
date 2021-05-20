@@ -11,7 +11,7 @@ namespace smb
         , m_width{width}
         , m_height{height}
     {
-
+        
         dynamic_assert(!instantiated, "Game instantiated");
         instantiated = true;
 
@@ -28,8 +28,7 @@ namespace smb
         }
         else
         {
-
-            std::thread renderThread{[this] {
+            std::thread renderThread{[&] {
                 m_surface = SDL_GetWindowSurface(m_window);
                 while(m_playing)
                 {
@@ -45,13 +44,9 @@ namespace smb
                 SDL_Event m_event;
                 while(m_playing)
                 {
-                    while(SDL_PollEvent(&m_event) != 0)
+                    while(SDL_PollEvent(&m_event))
                     {
-                        std::cout << (m_event.type == SDL_QUIT) << std::boolalpha << std::endl;
-                        if(m_event.type == SDL_QUIT)
-                        {
-                            m_playing = false;
-                        }
+                       handleInput(m_event); 
                     }
                 }
             }};
@@ -66,5 +61,38 @@ namespace smb
         instantiated = false;
         SDL_DestroyWindow(m_window);
         SDL_Quit();
+    }
+
+
+    void Game::handleInput(SDL_Event& event)
+    {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            m_playing = false;
+            break;
+        case SDL_KEYDOWN:
+            auto command = handleKeyInput(event);
+            if(command != nullptr)
+            {
+                command->execute();
+            }
+            break;
+        }
+    }
+
+    std::shared_ptr<Command> Game::handleKeyInput(SDL_Event& event)
+    {
+        switch (event.key.keysym.sym)
+        {
+        case SDLK_ESCAPE:
+            return m_escCommand;
+        case SDLK_d:
+            return m_dCommand;
+        case SDLK_a:
+            return m_aCommand;
+        default:
+            return nullptr; 
+        }
     }
 }

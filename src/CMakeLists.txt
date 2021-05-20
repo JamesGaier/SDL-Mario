@@ -2,13 +2,17 @@
 
 add_executable(
     Mario 
-    main.cpp
+    Command.cpp
     Game.cpp
+    main.cpp
+    ../include/Command.hpp
     ../include/Game.hpp
     ../include/Util.hpp
+    ../include/Vec2.hpp
 )
 
-add_compile_options(-std=c++17) 
+
+target_compile_features(Mario PUBLIC cxx_std_17)
 
 target_link_libraries(
     Mario

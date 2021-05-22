@@ -7,13 +7,14 @@ add_executable(
     main.cpp
 )
 
-target_compile_options(Mario PRIVATE -Wall -Wextra -Wpedantic -Wnull-dereference)
+target_compile_options(Mario PRIVATE -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address -g)
 
 target_compile_features(Mario PUBLIC cxx_std_17)
 
 target_link_libraries(
     Mario
     PRIVATE
+    -fsanitize=address
     SDL2
     SDL2_image
     pthread

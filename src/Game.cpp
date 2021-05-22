@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "Util.hpp"
 #include <cassert>
+#include <SDL_image.h>
 
 namespace smb
 {
@@ -14,46 +15,13 @@ namespace smb
     {
         assert(!instantiated); 
         instantiated = true;
+        windowInit();
+        m_player.reset(new Player(Vec2<float>{0, 0}, SDL_Rect{0, 0, 0, 0}));
 
-        if (SDL_Init(SDL_INIT_VIDEO) < 0)
-        {
-            std::cout << "SDL could not initialize!" << std::endl;
-        }
-
-        m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-
-        if (m_window == NULL)
-        {
-            std::cout << "Window could not be created" << std::endl;
-        }
-        else
-        {
-            std::thread renderThread{[&] {
-                m_surface = SDL_GetWindowSurface(m_window);
-                while(m_playing)
-                {
-                    // set screen color to black
-                    SDL_FillRect(m_surface, NULL, SDL_MapRGB(m_surface->format, 0, 0, 0));
-
-                    // update window surface
-                    SDL_UpdateWindowSurface(m_window);
-                }
-            }};
-
-            std::thread logicThread{[&] {
-                SDL_Event m_event;
-                while(m_playing)
-                {
-                    while(SDL_PollEvent(&m_event))
-                    {
-                       handleInput(m_event); 
-                    }
-                }
-            }};
-
-            renderThread.join();
-            logicThread.join();
-        }
+        std::thread renderThread{&Game::render, this};
+        std::thread logicThread{&Game::keyInput, this};
+        renderThread.join();
+        logicThread.join();
     }
 
     Game::~Game()
@@ -94,4 +62,56 @@ namespace smb
             return nullptr; 
         }
     }
+
+    void Game::render()
+    {
+        int imgFlags = IMG_INIT_PNG;
+        if(!(IMG_Init(imgFlags) & imgFlags))
+        {
+            std::cout << "Could not initialize SDL_image" << std::endl;
+            m_playing = false;
+        }
+        else
+        {
+            m_surface = SDL_GetWindowSurface(m_window);
+        }
+
+        while(m_playing)
+        {
+           // set screen color to black
+           SDL_FillRect(m_surface, NULL, SDL_MapRGB(m_surface->format, 0, 0, 0));
+           m_player->render(0, m_surface); 
+
+           // update window surface
+           SDL_UpdateWindowSurface(m_window);
+        }
+    }
+
+    void Game::keyInput()
+    {
+        SDL_Event m_event;
+        while (m_playing)
+        {
+            while (SDL_PollEvent(&m_event))
+            {
+                handleInput(m_event);
+            }
+        }
+    }
+
+    void Game::windowInit()
+    {
+        if (SDL_Init(SDL_INIT_VIDEO) < 0)
+        {
+            std::cout << "SDL could not initialize!" << std::endl;
+        }
+
+        m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_SHOWN);
+
+        if (m_window == NULL)
+        {
+            std::cout << "Window could not be created" << std::endl;
+        }
+    }
+
 }

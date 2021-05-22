@@ -1,5 +1,4 @@
 #pragma once
-#include "Util.hpp"
 
 namespace smb
 {
@@ -9,8 +8,6 @@ namespace smb
     public:
         virtual ~Collidable() = default;
         virtual void update(float dt) = 0;
-    private:
-        Rect<float> m_boundBox;
     };
 
 }

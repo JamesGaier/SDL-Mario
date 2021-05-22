@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <SDL_image.h>
 
 namespace smb
 {

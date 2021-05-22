@@ -1,8 +1,8 @@
 #pragma once
 #include "Collidable.hpp"
+#include "Util.hpp"
 #include "Renderable.hpp"
 #include <SDL.h>
-#include <SDL_image.h>
 
 namespace smb
 {

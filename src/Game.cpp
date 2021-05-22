@@ -1,5 +1,7 @@
 #include "Game.hpp"
 #include "Util.hpp"
+#include <iostream>
+#include <thread>
 #include <cassert>
 #include <SDL_image.h>
 
@@ -27,6 +29,7 @@ namespace smb
     Game::~Game()
     {
         instantiated = false;
+        SDL_FreeSurface(m_surface);
         SDL_DestroyWindow(m_window);
         SDL_Quit();
     }

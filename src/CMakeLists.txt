@@ -2,6 +2,7 @@
 add_executable(
     Mario 
     Command.cpp
+    Player.cpp
     Game.cpp
     main.cpp
 )

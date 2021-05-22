@@ -1,4 +1,3 @@
-// make texture an implementation detail
 
 ```plantuml
 

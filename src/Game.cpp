@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Util.hpp"
+#include <cassert>
 
 namespace smb
 {
@@ -11,8 +12,7 @@ namespace smb
         , m_width{width}
         , m_height{height}
     {
-        
-        dynamic_assert(!instantiated, "Game instantiated");
+        assert(!instantiated); 
         instantiated = true;
 
         if (SDL_Init(SDL_INIT_VIDEO) < 0)

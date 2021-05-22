@@ -14,5 +14,6 @@ target_link_libraries(
     Mario
     PRIVATE
     SDL2
+    SDL2_image
     pthread
 )

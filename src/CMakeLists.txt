@@ -1,11 +1,18 @@
 
+set(
+    MARIO_SRCS 
+    ${CMAKE_SOURCE_DIR}/src/Command.cpp
+    ${CMAKE_SOURCE_DIR}/src/Player.cpp
+    ${CMAKE_SOURCE_DIR}/src/Game.cpp
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+)
+
 add_executable(
     Mario 
-    Command.cpp
-    Player.cpp
-    Game.cpp
-    main.cpp
+    ${MARIO_SRCS}
 )
+
+add_custom_target(fmt COMMAND clang-format -i -style=file ${MARIO_SRCS} ${CMAKE_SOURCE_DIR}/include/*.hpp USES_TERMINAL)
 
 target_compile_options(Mario PRIVATE -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address -g)
 

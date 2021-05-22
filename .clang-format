@@ -1,0 +1,4 @@
+#Documentation https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+BasedOnStyle: Microsoft
+

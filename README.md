@@ -1,4 +1,4 @@
-![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/JamesGaier/SDL-Mario/edit/main/README.md)
+![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/JamesGaier/SDL-Mario/edit/main/README.md)
 ```plantuml
 
 

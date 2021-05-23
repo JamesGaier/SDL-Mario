@@ -12,7 +12,7 @@ class Player : public Collidable, public Renderable
     Player(Vec2<float> position, SDL_Rect boundingBox);
     ~Player() override;
     void update(float dt) override;
-    void render(float dt, SDL_Surface *screenSurface) override;
+    void render(float dt, SDL_Renderer *renderer) override;
 
   private:
     const std::string MARIO_PLACEHOLDER{"/home/james/Documents/SDL-Mario/res/mario.png"};
@@ -24,8 +24,8 @@ class Player : public Collidable, public Renderable
     Vec2<float> m_position;
     SDL_Rect m_boundingBox;
     Vec2<float> m_velocity;
-    SDL_Surface *playerSurface{NULL};
+    SDL_Texture *m_texture{NULL};
 
-    void loadImage(const std::string &path, SDL_Surface *screenSurface);
+    void loadImage(const std::string &path, SDL_Renderer *renderer);
 };
 } // namespace smb

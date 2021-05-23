@@ -7,6 +7,6 @@ class Renderable
 {
   public:
     virtual ~Renderable() = default;
-    virtual void render(float dt, SDL_Surface *screenSurface) = 0;
+    virtual void render(float dt, SDL_Renderer *renderer) = 0;
 };
 } // namespace smb

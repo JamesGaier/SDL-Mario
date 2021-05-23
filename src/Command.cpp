@@ -12,7 +12,7 @@ void EscCommand::execute()
     m_callback();
 }
 
-ACommand::ACommand()
+ACommand::ACommand(std::unique_ptr<Player> &player)
 {
 }
 
@@ -20,7 +20,7 @@ void ACommand::execute()
 {
 }
 
-DCommand::DCommand()
+DCommand::DCommand(std::unique_ptr<Player> &player)
 {
 }
 

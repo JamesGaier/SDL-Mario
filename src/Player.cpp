@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include <SDL_image.h>
+#include <chrono>
 
 namespace smb
 {
@@ -10,26 +11,25 @@ Player::Player(Vec2<float> position, SDL_Rect boundingBox) : m_position{position
 
 Player::~Player()
 {
-    SDL_FreeSurface(playerSurface);
+    SDL_DestroyTexture(m_texture);
+    m_texture = NULL;
 }
 
 void Player::update(float dt)
 {
 }
 
-void Player::render(float dt, SDL_Surface *screenSurface)
+void Player::render(float dt, SDL_Renderer *renderer)
 {
-    if (playerSurface == NULL)
+    if (m_texture == NULL)
     {
-        loadImage(MARIO_PLACEHOLDER, screenSurface);
+        loadImage(MARIO_PLACEHOLDER, renderer);
     }
-    else
-    {
-        SDL_BlitSurface(playerSurface, NULL, screenSurface, NULL);
-    }
+
+    SDL_RenderCopy(renderer, m_texture, NULL, &m_boundingBox);
 }
 
-void Player::loadImage(const std::string &path, SDL_Surface *screenSurface)
+void Player::loadImage(const std::string &path, SDL_Renderer *renderer)
 {
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
 
@@ -39,11 +39,13 @@ void Player::loadImage(const std::string &path, SDL_Surface *screenSurface)
     }
     else
     {
-        playerSurface = SDL_ConvertSurface(loadedSurface, screenSurface->format, 0);
-        if (playerSurface == NULL)
+        m_texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+        if (m_texture == NULL)
         {
-            std::cout << "Unable to optimize image " << path.c_str() << "! SDL Error: " << SDL_GetError();
+            std::cout << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << std::endl;
         }
+
+        SDL_FreeSurface(loadedSurface);
     }
 }
 } // namespace smb

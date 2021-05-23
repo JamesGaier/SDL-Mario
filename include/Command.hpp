@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Player.hpp"
 #include <functional>
+#include <memory>
 
 namespace smb
 {
@@ -26,14 +28,14 @@ class EscCommand : public Command
 class ACommand : public Command
 {
   public:
-    ACommand();
+    ACommand(std::unique_ptr<Player> &player);
     void execute() override;
 };
 
 class DCommand : public Command
 {
   public:
-    DCommand();
+    DCommand(std::unique_ptr<Player> &player);
     void execute() override;
 };
 

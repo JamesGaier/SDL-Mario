@@ -29,19 +29,20 @@ class Game
     unsigned m_width;
     unsigned m_height;
     SDL_Window *m_window = NULL;
-    SDL_Surface *m_surface = NULL;
+    SDL_Renderer *m_renderer = NULL;
     static bool instantiated;
     std::atomic<bool> m_playing{true};
-    std::unique_ptr<Command> m_escCommand{new EscCommand([&] { m_playing = false; })};
-    std::unique_ptr<Command> m_aCommand{new ACommand()};
-    std::unique_ptr<Command> m_dCommand{new DCommand()};
     std::unique_ptr<Player> m_player;
+    std::unique_ptr<Command> m_escCommand;
+    std::unique_ptr<Command> m_aCommand;
+    std::unique_ptr<Command> m_dCommand;
 
     void handleInput(SDL_Event &event);
     Command *handleKeyInput(SDL_Event &event);
     void render();
     void keyInput();
     void windowInit();
+    void update();
 };
 
 } // namespace smb

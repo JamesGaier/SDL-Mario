@@ -74,22 +74,7 @@ Command *Game::handleKeyInput(SDL_Event &event)
 
 void Game::render()
 {
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
-    if (m_renderer == NULL)
-    {
-        std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
-        m_playing = false;
-    }
-    else
-    {
-        int imgFlags = IMG_INIT_PNG;
-        if (!(IMG_Init(imgFlags) & imgFlags))
-        {
-            std::cout << "Could not initialize SDL_image" << std::endl;
-            m_playing = false;
-        }
-    }
-
+    rendererInit();
     while (m_playing)
     {
         SDL_RenderClear(m_renderer);
@@ -135,6 +120,25 @@ void Game::update()
     while (m_playing)
     {
         m_player->update(0);
+    }
+}
+
+void Game::rendererInit()
+{
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+    if (m_renderer == NULL)
+    {
+        std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
+        m_playing = false;
+    }
+    else
+    {
+        int imgFlags = IMG_INIT_PNG;
+        if (!(IMG_Init(imgFlags) & imgFlags))
+        {
+            std::cout << "Could not initialize SDL_image" << std::endl;
+            m_playing = false;
+        }
     }
 }
 

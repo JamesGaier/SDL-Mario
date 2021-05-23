@@ -42,6 +42,7 @@ class Game
     void render();
     void keyInput();
     void windowInit();
+    void rendererInit();
     void update();
 };
 

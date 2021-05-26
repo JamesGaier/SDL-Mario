@@ -38,7 +38,12 @@ void Player::render(float dt, SDL_Renderer *renderer)
         SDL_RenderCopy(renderer, m_texture, &frame, &frame);
     }
 
-    SDL_RenderCopy(renderer, m_texture, &m_frames[4], &m_boundingBox);
+
+
+    //std::cout << m_frames[1].x << " " << m_frames[1].y << " " << m_frames[1].w << " " << m_frames[1].h << std::endl;
+
+    //SDL_Rect frame = SDL_Rect{1, 4, 16, 29};
+
 }
 
 void Player::loadImage(const std::string &path, SDL_Renderer *renderer)

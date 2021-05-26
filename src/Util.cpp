@@ -46,14 +46,20 @@ std::vector<SDL_Rect> parse_coords(const std::string& coords)
         idx_e = idx_s;
     }
 
+    
 
-    constexpr auto coordLen = 4u;
     std::vector<SDL_Rect> result;
+    auto k = 0u;
     for(auto i = 0u; i < coords_num.size(); ++i)
     {
-        if(i % coordLen == 0 && i != 0)
+        if(k == 3 && i != 0)
         {
             result.push_back({coords_num[i - 3], coords_num[i - 2], coords_num[i - 1], coords_num[i]});
+            k = 0;
+        }
+        else
+        {
+            ++k;
         }
     }
 

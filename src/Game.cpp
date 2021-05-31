@@ -17,6 +17,7 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     windowInit();
 
     m_player.reset(new Player(Vec2<float>{0, 0}, SDL_Rect{300, 200, 128, 150}));
+    m_ground.reset(new Ground(GroundType::BROWN, Vec2<float>{100, 100}));
     m_aCommand.reset(new ACommand(m_player));
     m_dCommand.reset(new ACommand(m_player));
     m_escCommand.reset(new EscCommand([&] { m_playing = false; }));
@@ -79,7 +80,8 @@ void Game::render()
     {
         SDL_RenderClear(m_renderer);
         SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0xFF);
-        m_player->render(0, m_renderer);
+        // m_player->render(0, m_renderer);
+        m_ground->render(0, m_renderer);
         SDL_RenderPresent(m_renderer);
     }
 }
@@ -109,9 +111,6 @@ void Game::windowInit()
     if (m_window == NULL)
     {
         std::cout << "Window could not be created" << std::endl;
-    }
-    else
-    {
     }
 }
 

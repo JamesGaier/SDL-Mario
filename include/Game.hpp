@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Command.hpp"
+#include "Ground.hpp"
 #include "Player.hpp"
 #include <SDL.h>
 #include <atomic>
@@ -33,6 +34,7 @@ class Game
     static bool instantiated;
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Player> m_player;
+    std::unique_ptr<Ground> m_ground;
     std::unique_ptr<Command> m_escCommand;
     std::unique_ptr<Command> m_aCommand;
     std::unique_ptr<Command> m_dCommand;

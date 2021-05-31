@@ -6,6 +6,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/Game.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/Util.cpp
+    ${CMAKE_SOURCE_DIR}/src/Ground.cpp
 )
 
 add_executable(

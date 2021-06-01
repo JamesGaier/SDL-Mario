@@ -22,14 +22,14 @@ class Ground : public Renderable
     Ground(GroundType &&type, const Vec2<float> &pos);
     void render(float dt, SDL_Renderer *renderer) override;
 
+
   private:
     SDL_Texture *m_texture{NULL};
     SDL_Rect m_spriteSheetPos;
     SDL_Rect m_boundingBox;
     GroundType m_type;
-    std::string m_path;
     Vec2<float> m_pos;
 
-    void initGround(const std::vector<SDL_Rect>& tiles);
+    void initGround(const std::vector<SDL_Rect> &tiles);
 };
 } // namespace smb

@@ -10,8 +10,15 @@ namespace smb
 Player::Player(Vec2<float> position, SDL_Rect boundingBox) : m_position{position}, m_boundingBox{boundingBox}
 {
     const auto coords_f = read_file("textCoords.txt");
-    auto coords = parse_coords(coords_f);
+    auto coords = parse_spritesheet(coords_f);
     m_frames = std::move(coords);
+    m_boundingBox = m_frames[14];
+    m_boundingBox.x = 200;
+    m_boundingBox.y = 804;
+    m_boundingBox.w *= 2;
+    m_boundingBox.h *= 2;
+    m_acceleration = Vec2<float>{0, 0.0026f};
+    m_velocity = Vec2<float>{0, 0};
 }
 
 Player::~Player()
@@ -22,6 +29,7 @@ Player::~Player()
 
 void Player::update(float dt)
 {
+    
 }
 
 void Player::render(float dt, SDL_Renderer *renderer)
@@ -31,16 +39,7 @@ void Player::render(float dt, SDL_Renderer *renderer)
         loadImage(toAbsolute("characters.gif"), renderer, &m_texture);
     }
 
-    // SDL_RenderCopy(renderer, m_texture, NULL, &m_boundingBox);
-
-    for (const auto &frame : m_frames)
-    {
-        SDL_RenderCopy(renderer, m_texture, &frame, &frame);
-    }
-
-    // std::cout << m_frames[1].x << " " << m_frames[1].y << " " << m_frames[1].w << " " << m_frames[1].h << std::endl;
-
-    // SDL_Rect frame = SDL_Rect{1, 4, 16, 29};
+    SDL_RenderCopy(renderer, m_texture, &m_frames[14], &m_boundingBox);
 }
 
 } // namespace smb

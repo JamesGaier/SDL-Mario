@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <atomic>
 #include <memory>
+#include <mutex>
 
 namespace smb
 {
@@ -34,10 +35,12 @@ class Game
     static bool instantiated;
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Player> m_player;
-    std::unique_ptr<Ground> m_ground;
+    std::vector<std::unique_ptr<Renderable>> m_level;
     std::unique_ptr<Command> m_escCommand;
     std::unique_ptr<Command> m_aCommand;
     std::unique_ptr<Command> m_dCommand;
+    std::mutex m_mut;
+    SDL_Event m_event;
 
     void handleInput(SDL_Event &event);
     Command *handleKeyInput(SDL_Event &event);

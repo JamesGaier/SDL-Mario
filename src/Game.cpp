@@ -14,20 +14,15 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
 {
     assert(!instantiated);
     instantiated = true;
-    windowInit();
 
     m_player.reset(new Player(Vec2<float>{0, 0}, SDL_Rect{300, 200, 128, 150}));
-    m_ground.reset(new Ground(GroundType::BROWN, Vec2<float>{100, 100}));
+    m_level = make_level("w1-1.txt");
     m_aCommand.reset(new ACommand(m_player));
     m_dCommand.reset(new ACommand(m_player));
     m_escCommand.reset(new EscCommand([&] { m_playing = false; }));
 
-    std::thread renderThread{&Game::render, this};
-    std::thread inputThread{&Game::keyInput, this};
+    render();
     std::thread physicsThread{&Game::update, this};
-
-    renderThread.join();
-    inputThread.join();
     physicsThread.join();
 }
 
@@ -75,26 +70,21 @@ Command *Game::handleKeyInput(SDL_Event &event)
 
 void Game::render()
 {
-    rendererInit();
-    while (m_playing)
-    {
-        SDL_RenderClear(m_renderer);
-        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0xFF);
-        // m_player->render(0, m_renderer);
-        m_ground->render(0, m_renderer);
-        SDL_RenderPresent(m_renderer);
-    }
-}
-
-void Game::keyInput()
-{
-    SDL_Event m_event;
+    windowInit();
     while (m_playing)
     {
         while (SDL_PollEvent(&m_event))
         {
             handleInput(m_event);
         }
+        SDL_RenderClear(m_renderer);
+        SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF);
+        m_player->render(0, m_renderer);
+        for (const auto &el : m_level)
+        {
+            el->render(0, m_renderer);
+        }
+        SDL_RenderPresent(m_renderer);
     }
 }
 
@@ -112,18 +102,7 @@ void Game::windowInit()
     {
         std::cout << "Window could not be created" << std::endl;
     }
-}
 
-void Game::update()
-{
-    while (m_playing)
-    {
-        m_player->update(0);
-    }
-}
-
-void Game::rendererInit()
-{
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
     if (m_renderer == NULL)
     {
@@ -139,6 +118,18 @@ void Game::rendererInit()
             m_playing = false;
         }
     }
+}
+
+void Game::update()
+{
+    while (m_playing)
+    {
+        m_player->update(0);
+    }
+}
+
+void Game::rendererInit()
+{
 }
 
 } // namespace smb

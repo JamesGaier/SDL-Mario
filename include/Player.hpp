@@ -25,6 +25,7 @@ class Player : public Collidable, public Renderable
     Vec2<float> m_position;
     SDL_Rect m_boundingBox;
     Vec2<float> m_velocity;
+    Vec2<float> m_acceleration;
     std::vector<SDL_Rect> m_frames;
     SDL_Texture *m_texture{NULL};
 };

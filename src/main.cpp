@@ -2,5 +2,5 @@
 
 int main()
 {
-    auto window = std::make_unique<smb::Game>("Super Mario Brothers clone", 800, 600);
+    auto window = std::make_unique<smb::Game>("Super Mario Brothers clone", 1600, 900);
 }

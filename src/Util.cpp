@@ -1,4 +1,5 @@
 #include "Util.hpp"
+#include "Ground.hpp"
 #include <SDL_image.h>
 #include <filesystem>
 #include <fstream>
@@ -28,16 +29,17 @@ std::string read_file(const std::string &path)
     while (getline(file, line))
     {
         ss << line;
+        ss << '\n';
     }
     return ss.str();
 }
 
-std::vector<SDL_Rect> parse_coords(const std::string &coords)
+std::vector<int> parse_coords(const std::string &coords)
 {
     std::vector<int> coords_num;
     auto idx_s = 0u;
     auto idx_e = 0u;
-    while (idx_s < coords.length() && idx_s < coords.length())
+    while (idx_s < coords.length() && idx_e < coords.length())
     {
         while (isdigit(coords[idx_e]))
         {
@@ -53,6 +55,51 @@ std::vector<SDL_Rect> parse_coords(const std::string &coords)
         idx_e = idx_s;
     }
 
+    return coords_num;
+}
+
+std::vector<std::vector<int>> parse_level(const std::string &level)
+{
+    std::vector<std::vector<int>> result;
+    auto idx_s = 0u;
+    auto idx_e = 0u;
+    auto row = 0u;
+
+    for (auto i = 0u; i < level.length(); ++i)
+    {
+        if (level[i] == '\n')
+        {
+            result.push_back(std::vector<int>{});
+        }
+    }
+
+    while (idx_s < level.length() && idx_e < level.length())
+    {
+        while (isdigit(level[idx_e]))
+        {
+            ++idx_e;
+        }
+
+        result[row].push_back(std::stoi(level.substr(idx_s, idx_e - idx_s)));
+        idx_s = idx_e;
+
+        while (level[idx_s] == ' ' || level[idx_s] == ',' || level[idx_s] == '\n')
+        {
+            if (level[idx_s] == '\n')
+            {
+                ++row;
+            }
+            ++idx_s;
+        }
+        idx_e = idx_s;
+    }
+
+    return result;
+}
+
+std::vector<SDL_Rect> parse_spritesheet(const std::string &coords)
+{
+    auto coords_num = parse_coords(coords);
     std::vector<SDL_Rect> result;
     auto k = 0u;
     for (auto i = 0u; i < coords_num.size(); ++i)
@@ -67,8 +114,34 @@ std::vector<SDL_Rect> parse_coords(const std::string &coords)
             ++k;
         }
     }
-
     return result;
+}
+
+std::vector<std::unique_ptr<Renderable>> make_level(const std::string &path)
+{
+    std::vector<std::unique_ptr<Renderable>> level;
+    auto levelStr = read_file(path);
+    auto levelData = parse_level(levelStr);
+
+    const auto BLOCK_SIZE = 32.0f;
+    const auto HEIGHT = 900;
+    for (auto y = 0u; y < levelData.size(); ++y)
+    {
+        for (auto x = 0u; x < levelData[y].size(); ++x)
+        {
+            auto type = static_cast<TileType>(levelData[y][x]);
+            switch (type)
+            {
+            case TileType::GROUND: {
+                level.push_back(
+                    std::make_unique<Ground>(GroundType::BROWN, Vec2<float>{x * BLOCK_SIZE, HEIGHT - BLOCK_SIZE}));
+                break;
+            }
+            }
+        }
+    }
+
+    return level;
 }
 
 void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **texture)

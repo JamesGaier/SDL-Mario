@@ -22,7 +22,6 @@ class Ground : public Renderable
     Ground(GroundType &&type, const Vec2<float> &pos);
     void render(float dt, SDL_Renderer *renderer) override;
 
-
   private:
     SDL_Texture *m_texture{NULL};
     SDL_Rect m_spriteSheetPos;

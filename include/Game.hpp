@@ -2,11 +2,11 @@
 
 #include "Command.hpp"
 #include "Ground.hpp"
+#include "Level.hpp"
 #include "Player.hpp"
 #include <SDL.h>
 #include <atomic>
 #include <memory>
-#include <mutex>
 
 namespace smb
 {
@@ -34,12 +34,9 @@ class Game
     SDL_Renderer *m_renderer = NULL;
     static bool instantiated;
     std::atomic<bool> m_playing{true};
-    std::unique_ptr<Player> m_player;
-    std::vector<std::unique_ptr<Renderable>> m_level;
+    std::unique_ptr<Level> m_level;
     std::unique_ptr<Command> m_escCommand;
-    std::unique_ptr<Command> m_aCommand;
-    std::unique_ptr<Command> m_dCommand;
-    std::mutex m_mut;
+
     SDL_Event m_event;
 
     void handleInput(SDL_Event &event);

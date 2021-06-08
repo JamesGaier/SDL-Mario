@@ -7,22 +7,6 @@
 
 namespace smb
 {
-enum class TileType
-{
-    GROUND = 1,
-    BREAKABLE,
-    UP_PIPE,
-    LEFT_PIPE,
-    RIGHT_PIPE,
-    DOWN_PIPE,
-    MUSHROOM,
-    QUESTION,
-    INVISIBLE,
-    SOLID,
-    FLAG_POLE,
-    CASTLE
-};
-
 template <typename T> struct Vec2
 {
     T x, y;
@@ -38,19 +22,24 @@ template <typename T> struct Vec2
     Vec2(const Vec2 &copy) : x{copy.x}, y{copy.y}
     {
     }
-    
-    Vec2<T>& operator+(const Vec2& rhs)
+
+    Vec2<T> &operator+(const Vec2 &rhs)
     {
         return {x + rhs.x, y + rhs.y};
     }
     
-    Vec2<T>& operator-(const Vec2& rhs)
+    Vec2<T> &operator+=(const Vec2 &rhs)
+    {
+        return {x + rhs.x, y + rhs.y};
+    }
+
+    Vec2<T> &operator-(const Vec2 &rhs)
     {
         return {x - rhs.x, y - rhs.y};
     }
-    
+
     // dot product
-    T operator*(const Vec2& rhs)
+    T operator*(const Vec2 &rhs)
     {
         return (x + rhs.x) * (y + rhs.y);
     }
@@ -70,8 +59,6 @@ std::vector<int> parse_coords(const std::string &coords);
 std::vector<std::vector<int>> parse_level(const std::string &coords);
 
 std::vector<SDL_Rect> parse_spritesheet(const std::string &coords);
-
-std::vector<std::unique_ptr<Renderable>> make_level(const std::string &tiles);
 
 void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **texture);
 

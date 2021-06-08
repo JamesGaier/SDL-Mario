@@ -28,14 +28,14 @@ class EscCommand : public Command
 class ACommand : public Command
 {
   public:
-    ACommand(std::unique_ptr<Player> &player);
+    ACommand(Player *player);
     void execute() override;
 };
 
 class DCommand : public Command
 {
   public:
-    DCommand(std::unique_ptr<Player> &player);
+    DCommand(Player *player);
     void execute() override;
 };
 

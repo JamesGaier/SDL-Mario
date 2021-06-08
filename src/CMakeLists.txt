@@ -7,6 +7,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/Util.cpp
     ${CMAKE_SOURCE_DIR}/src/Ground.cpp
+    ${CMAKE_SOURCE_DIR}/src/Level.cpp
 )
 
 add_executable(

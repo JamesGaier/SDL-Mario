@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "Util.hpp"
+#include "Level.hpp"
 #include <SDL_image.h>
 #include <cassert>
 #include <iostream>
@@ -15,14 +15,13 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     assert(!instantiated);
     instantiated = true;
 
-    m_player.reset(new Player(Vec2<float>{0, 0}, SDL_Rect{300, 200, 128, 150}));
-    m_level = make_level("w1-1.txt");
-    m_aCommand.reset(new ACommand(m_player));
-    m_dCommand.reset(new ACommand(m_player));
+    m_level.reset(new Level("w1-1.txt"));
     m_escCommand.reset(new EscCommand([&] { m_playing = false; }));
 
     render();
+    //std::thread renderThread{&Game::render, this};
     std::thread physicsThread{&Game::update, this};
+    //renderThread.join();
     physicsThread.join();
 }
 
@@ -60,9 +59,9 @@ Command *Game::handleKeyInput(SDL_Event &event)
     case SDLK_ESCAPE:
         return m_escCommand.get();
     case SDLK_d:
-        return m_dCommand.get();
+        return m_level->getDCommand();
     case SDLK_a:
-        return m_aCommand.get();
+        return m_level->getACommand();
     default:
         return nullptr;
     }
@@ -79,11 +78,7 @@ void Game::render()
         }
         SDL_RenderClear(m_renderer);
         SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF);
-        m_player->render(0, m_renderer);
-        for (const auto &el : m_level)
-        {
-            el->render(0, m_renderer);
-        }
+        m_level->render(0, m_renderer);
         SDL_RenderPresent(m_renderer);
     }
 }
@@ -124,7 +119,7 @@ void Game::update()
 {
     while (m_playing)
     {
-        m_player->update(0);
+        m_level->update(1);
     }
 }
 

@@ -1,5 +1,6 @@
 #include "Util.hpp"
 #include "Ground.hpp"
+#include "Player.hpp"
 #include <SDL_image.h>
 #include <filesystem>
 #include <fstream>
@@ -115,33 +116,6 @@ std::vector<SDL_Rect> parse_spritesheet(const std::string &coords)
         }
     }
     return result;
-}
-
-std::vector<std::unique_ptr<Renderable>> make_level(const std::string &path)
-{
-    std::vector<std::unique_ptr<Renderable>> level;
-    auto levelStr = read_file(path);
-    auto levelData = parse_level(levelStr);
-
-    const auto BLOCK_SIZE = 32.0f;
-    const auto HEIGHT = 900;
-    for (auto y = 0u; y < levelData.size(); ++y)
-    {
-        for (auto x = 0u; x < levelData[y].size(); ++x)
-        {
-            auto type = static_cast<TileType>(levelData[y][x]);
-            switch (type)
-            {
-            case TileType::GROUND: {
-                level.push_back(
-                    std::make_unique<Ground>(GroundType::BROWN, Vec2<float>{x * BLOCK_SIZE, HEIGHT - BLOCK_SIZE}));
-                break;
-            }
-            }
-        }
-    }
-
-    return level;
 }
 
 void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **texture)

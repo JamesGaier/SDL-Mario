@@ -19,9 +19,9 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     m_escCommand.reset(new EscCommand([&] { m_playing = false; }));
 
     render();
-    //std::thread renderThread{&Game::render, this};
+    std::thread renderThread{&Game::render, this};
     std::thread physicsThread{&Game::update, this};
-    //renderThread.join();
+    renderThread.join();
     physicsThread.join();
 }
 

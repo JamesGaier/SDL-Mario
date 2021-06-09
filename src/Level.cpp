@@ -58,12 +58,12 @@ void Level::render(float dt, SDL_Renderer *renderer)
 
 void Level::update(float dt)
 {
-    for(const auto &el : m_level)
+    for (const auto &el : m_level)
     {
-        auto col_el = dynamic_cast<Collidable*>(el.get());
-        if(!col_el)
+        auto col_el = dynamic_cast<Collidable *>(el.get());
+        if (!col_el)
         {
-           col_el->update(dt); 
+            col_el->update(dt);
         }
     }
 }

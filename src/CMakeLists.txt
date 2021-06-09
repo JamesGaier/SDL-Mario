@@ -8,6 +8,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/Util.cpp
     ${CMAKE_SOURCE_DIR}/src/Ground.cpp
     ${CMAKE_SOURCE_DIR}/src/Level.cpp
+    ${CMAKE_SOURCE_DIR}/src/PlayerGraphicsComponent.cpp
 )
 
 add_executable(

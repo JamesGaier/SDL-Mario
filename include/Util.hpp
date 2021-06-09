@@ -27,7 +27,7 @@ template <typename T> struct Vec2
     {
         return {x + rhs.x, y + rhs.y};
     }
-    
+
     Vec2<T> &operator+=(const Vec2 &rhs)
     {
         return {x + rhs.x, y + rhs.y};

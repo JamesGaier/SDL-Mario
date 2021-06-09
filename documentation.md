@@ -3,38 +3,52 @@
 
 @startuml
 
-Renderable *-- Vec2
-Renderable *-- Tex
-
-
-
-interface Renderable {
-    #m_position : Vec2
-    #m_isSolid : const bool
-    +render(dt : float) : void
+class GraphicsComponent {
+    +~GraphicsComponent()
+    render(gameObject : GameObject&, renderer : SDL_Renderer*) : void
 }
 
- Collidable *-- Rect
-
-interface Collidable {
-    #m_boundingBox : Rect
-    +update(dt : float) : void
+interface PhysicsComponent {
+    +~PhysicsComponent()
+    {abstract}update(gameObject : GameObject&, dt : float) : void
 }
 
-Rect *-- Vec2
+interface InputComponent {
+    +~InputComponent()
+    {abstract}update(gameObject : GameObject&) : void
+}
 
-class Rect {
-    -verts : std::array<Vec2, 4>
+InputComponent <|-- GameInputComponent
+
+class GameInputComponent {
+    +~GameInputComponent()
+    +update(gameObject : GameObject&) : void
+}
+
+PhysicsComponent <|-- PlayerPhysicsComponent
+
+class PlayerPhysicsComponent {
+    +~PlayerPhysicsComponent()
+    +update(gameObject : GameObject&) : void
 }
 
 
-class Vec2<T> {
-    +T x
-    +T y
+class GameObject {
+   -position : Vector2f
+   -velocity : Vector2f
+   -m_physicsComponent : PhysicsComponent
+   -m_inputComponent : InputComponent
+   -m_graphicsComponent : GraphicsComponent
+   +GameObject(physicsComponent : PhysicsComponent, inputComponent : InputComponent, graphicsComponent : GraphicsComponent) 
+   +update(float dt) : void
+   +render(float dt, SDL_Renderer *renderer) : void
 }
 
-Collidable <|-- Player
-Renderable <|-- Player
+class Vector2f {
+    +x : std::atomic<float>
+    +y : std::atomic<float>
+}
+
 
 
 class Player {

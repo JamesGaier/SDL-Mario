@@ -16,6 +16,11 @@ PlayerGraphicsComponent::PlayerGraphicsComponent(std::vector<SDL_Rect> &frames, 
 
 void PlayerGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *renderer)
 {
+    {
+        std::lock_guard<std::mutex> lg{m_renderMutex};
+        m_scaleRect.x = static_cast<int>(gameObject.m_position.x);
+        m_scaleRect.y = static_cast<int>(gameObject.m_position.y);
+    }
     SDL_RenderCopy(renderer, m_spriteSheet, &m_frames[tempFrame], &m_scaleRect);
 }
 

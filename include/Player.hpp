@@ -1,5 +1,8 @@
 #pragma once
 #include "Collidable.hpp"
+#include "GraphicsComponent.hpp"
+#include "InputComponent.hpp"
+#include "PhysicsComponent.hpp"
 #include "Renderable.hpp"
 #include "Util.hpp"
 #include <SDL.h>

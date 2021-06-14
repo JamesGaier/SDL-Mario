@@ -36,10 +36,10 @@ class PlayerPhysicsComponent {
 class GameObject {
    -position : Vector2f
    -velocity : Vector2f
-   -m_physicsComponent : PhysicsComponent
-   -m_inputComponent : InputComponent
-   -m_graphicsComponent : GraphicsComponent
-   +GameObject(physicsComponent : PhysicsComponent, inputComponent : InputComponent, graphicsComponent : GraphicsComponent) 
+   -m_physicsComponent : std::unique_ptr<PhysicsComponent>
+   -m_inputComponent : std::unique_ptr<InputComponent>
+   -m_graphicsComponent : std::unique_ptr<GraphicsComponent>
+   +GameObject(std::unique_ptr<PhysicsComponent> &physicsComponent, std::unique_ptr<InputComponent> &inputComponent, std::unique_ptr<GraphicsComponent> &m_graphics)
    +update(float dt) : void
    +render(float dt, SDL_Renderer *renderer) : void
 }

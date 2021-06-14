@@ -4,6 +4,7 @@
 namespace smb
 {
 
+class GameObject;
 class PhysicsComponent
 {
   public:

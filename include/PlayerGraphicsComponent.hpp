@@ -3,6 +3,7 @@
 #include "GameObject.hpp"
 #include "GraphicsComponent.hpp"
 #include <SDL.h>
+#include <mutex>
 #include <vector>
 
 namespace smb
@@ -22,6 +23,7 @@ class PlayerGraphicsComponent : public GraphicsComponent
     SDL_Texture *m_spriteSheet;
     SDL_Rect m_scaleRect;
     const unsigned tempFrame = 14;
+    std::mutex m_renderMutex;
 };
 
 } // namespace smb

@@ -9,6 +9,9 @@ set(
     ${CMAKE_SOURCE_DIR}/src/Ground.cpp
     ${CMAKE_SOURCE_DIR}/src/Level.cpp
     ${CMAKE_SOURCE_DIR}/src/PlayerGraphicsComponent.cpp
+    ${CMAKE_SOURCE_DIR}/src/PlayerPhysicsComponent.cpp
+    ${CMAKE_SOURCE_DIR}/src/GameObject.cpp
+    ${CMAKE_SOURCE_DIR}/src/StaticTileGraphicsComponent.cpp
 )
 
 add_executable(

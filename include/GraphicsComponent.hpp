@@ -5,6 +5,7 @@
 namespace smb
 {
 
+class GameObject;
 class GraphicsComponent
 {
   public:

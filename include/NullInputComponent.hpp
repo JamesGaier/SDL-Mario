@@ -4,11 +4,13 @@
 namespace smb
 {
 
-class NullInputComponent : public InputComponent
+class NullInputComponent final : public InputComponent
 {
 public:
 	~NullInputComponent() override = default;
-	void update(GameObject &GameObject) override; 
+	void update(GameObject &GameObject) override 
+	{
+	}
 };
 
 }

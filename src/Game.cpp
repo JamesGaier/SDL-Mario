@@ -17,10 +17,9 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
 
     m_level.reset(new Level("w1-1.txt"));
 
-    render();
-    // std::thread renderThread{&Game::render, this};
+    std::thread renderThread{&Game::render, this};
     std::thread physicsThread{&Game::update, this};
-    // renderThread.join();
+    renderThread.join();
     physicsThread.join();
 }
 
@@ -50,8 +49,8 @@ void Game::render()
             }
         }
         SDL_RenderClear(m_renderer);
-        SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF);
-        m_level->render(0, m_renderer);
+        SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF); // Please change magic numbers here
+        m_level->render(m_renderer);
         SDL_RenderPresent(m_renderer);
     }
 }

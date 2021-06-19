@@ -1,33 +1,28 @@
 #include "PlayerInputComponent.hpp"
+#include <iostream>
+#include <chrono>
 
 namespace smb
 {
-	
+    
 void PlayerInputComponent::update(GameObject &gameObject)
 {
-    if (auto *command = handleKeyInput(); command != nullptr)
+    const auto* currentKeyStates = SDL_GetKeyboardState( nullptr );
+    constexpr auto horizontalSpeed = 0.002;
+    
+    if(currentKeyStates[SDL_SCANCODE_D])
     {
-        command->execute(gameObject);
+        gameObject.m_velocity.x = horizontalSpeed;
+    }
+    else if(currentKeyStates[SDL_SCANCODE_A])
+    {
+        gameObject.m_velocity.x = -horizontalSpeed;
+    }
+    else 
+    {
+        gameObject.m_acceleration = Vec2<float>{0, gameObject.m_acceleration.y};
+        gameObject.m_velocity = Vec2<float>{0, gameObject.m_velocity.y};
     }
 }	
 
-
-Command *PlayerInputComponent::handleKeyInput()
-{
-    const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-
-    if(currentKeyStates[SDL_SCANCODE_D])
-    {
-        return m_dCommand.get();
-    }
-
-    if(currentKeyStates[SDL_SCANCODE_A])
-    {
-        return m_aCommand.get();
-    }
-    
-    return nullptr;
-}
-
-	
 }

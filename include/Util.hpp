@@ -45,30 +45,31 @@ template <typename T> struct Vec2
     {
     }
 
-    Vec2(const Vec2 &copy) : x{copy.x}, y{copy.y}
-    {
-    }
-
-    Vec2<T> &operator+(const Vec2 &rhs)
+    Vec2<T> operator+(Vec2<T> &&rhs)
     {
         return {x + rhs.x, y + rhs.y};
     }
 
-    Vec2<T> &operator+=(const Vec2 &rhs)
+    Vec2<T> operator+=(Vec2<T> &&rhs)
     {
         return {x + rhs.x, y + rhs.y};
     }
 
-    Vec2<T> &operator-(const Vec2 &rhs)
+    Vec2<T> operator-(Vec2<T> &&rhs)
     {
         return {x - rhs.x, y - rhs.y};
     }
 
     // dot product
-    T operator*(const Vec2 &rhs)
+    T operator*(Vec2<T> &&rhs)
     {
         return (x + rhs.x) * (y + rhs.y);
     }
+    
+    Vec2<T> operator*(T rhs)
+    {
+        return {rhs * x, rhs * y};
+    } 
 };
 
 template <typename T> struct Rect

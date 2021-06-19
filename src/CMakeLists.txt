@@ -1,7 +1,6 @@
 
 set(
     MARIO_SRCS 
-    ${CMAKE_SOURCE_DIR}/src/Command.cpp
     ${CMAKE_SOURCE_DIR}/src/Player.cpp
     ${CMAKE_SOURCE_DIR}/src/Game.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
@@ -13,9 +12,6 @@ set(
     ${CMAKE_SOURCE_DIR}/src/PlayerPhysicsComponent.cpp
     ${CMAKE_SOURCE_DIR}/src/PlayerInputComponent.cpp
     ${CMAKE_SOURCE_DIR}/src/StaticTileGraphicsComponent.cpp
-    ${CMAKE_SOURCE_DIR}/src/NullGraphicsComponent.cpp
-    ${CMAKE_SOURCE_DIR}/src/NullPhysicsComponent.cpp
-    ${CMAKE_SOURCE_DIR}/src/NullInputComponent.cpp
 )
 
 add_executable(

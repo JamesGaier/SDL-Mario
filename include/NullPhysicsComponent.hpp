@@ -5,11 +5,13 @@
 namespace smb
 {
 
-class NullPhysicsComponent: public PhysicsComponent
+class NullPhysicsComponent final: public PhysicsComponent
 {
 public:
 	~NullPhysicsComponent() override = default;
-	void update(GameObject &gameObject, float dt) override;
+	void update(GameObject &gameObject, float dt) override
+	{
+	}
 };
 
 }

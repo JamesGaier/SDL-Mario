@@ -1,11 +1,12 @@
 #include "GameObject.hpp"
+#include <SDL.h>
 
 namespace smb
 {
 
-GameObject::GameObject(std::unique_ptr<GraphicsComponent> &graphicsComponent,
-                       std::unique_ptr<PhysicsComponent> &physicsComponent,
-                       std::unique_ptr<InputComponent> &inputComponent)
+GameObject::GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
+                       std::unique_ptr<PhysicsComponent> physicsComponent,
+                       std::unique_ptr<InputComponent> inputComponent)
     : m_graphicsComponent{std::move(graphicsComponent)}, m_physicsComponent{std::move(physicsComponent)},
       m_inputComponent{std::move(inputComponent)}
 {

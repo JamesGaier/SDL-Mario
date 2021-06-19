@@ -2,8 +2,8 @@
 #include "Level.hpp"
 #include <SDL_image.h>
 #include <cassert>
-#include <iostream>
 #include <thread>
+#include <iostream>
 
 namespace smb
 {
@@ -16,7 +16,6 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     instantiated = true;
 
     m_level.reset(new Level("w1-1.txt"));
-    m_escCommand.reset(new EscCommand([&] { m_playing = false; }));
 
     render();
     // std::thread renderThread{&Game::render, this};
@@ -36,36 +35,7 @@ Game::~Game()
     SDL_Quit();
 }
 
-void Game::handleInput(SDL_Event &event)
-{
-    switch (event.type)
-    {
-    case SDL_QUIT:
-        m_playing = false;
-        break;
-    case SDL_KEYDOWN:
-        if (auto *command = handleKeyInput(event); command != nullptr)
-        {
-            command->execute();
-        }
-        break;
-    }
-}
 
-Command *Game::handleKeyInput(SDL_Event &event)
-{
-    switch (event.key.keysym.sym)
-    {
-    case SDLK_ESCAPE:
-        return m_escCommand.get();
-    case SDLK_d:
-        return m_level->getDCommand();
-    case SDLK_a:
-        return m_level->getACommand();
-    default:
-        return nullptr;
-    }
-}
 
 void Game::render()
 {
@@ -74,7 +44,10 @@ void Game::render()
     {
         while (SDL_PollEvent(&m_event))
         {
-            handleInput(m_event);
+            if(m_event.type == SDL_QUIT || m_event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                m_playing = false;
+            }
         }
         SDL_RenderClear(m_renderer);
         SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF);

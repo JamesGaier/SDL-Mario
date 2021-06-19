@@ -1,22 +1,16 @@
 #include "GraphicsComponent.hpp"
 #include <SDL.h>
+#include "Util.hpp"
 
 namespace smb
 {
-enum class TileColor
-{
-    BROWN,
-    BLUE,
-    WHITE,
-    GREEN
-};
 
 
 class StaticTileGraphicsComponent : public GraphicsComponent
 {
 public:
 
-	StaticTileGraphicsComponent();
+	StaticTileGraphicsComponent(TileColor tileColor, Vec2<float> pos);
 
     ~StaticTileGraphicsComponent() override = default;
 
@@ -24,6 +18,7 @@ public:
 private:
 	SDL_Rect m_tile;
 	SDL_Rect m_scaleRect;
-	SDL_Texture *m_spriteSheet;
+	SDL_Texture *m_spriteSheet{nullptr};
+    const unsigned m_size{32};
 };
 } // namespace smb

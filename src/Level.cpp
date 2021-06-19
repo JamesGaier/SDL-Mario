@@ -1,5 +1,11 @@
 #include "Level.hpp"
 #include <iostream>
+#include "StaticTileGraphicsComponent.hpp"
+#include "NullPhysicsComponent.hpp"
+#include "NullInputComponent.hpp"
+#include "PlayerGraphicsComponent.hpp"
+#include "PlayerPhysicsComponent.hpp"
+#include "PlayerInputComponent.hpp"
 
 namespace smb
 {
@@ -20,16 +26,28 @@ Level::Level(const std::string &path)
             switch (type)
             {
             case TileType::GROUND: {
-                m_level.push_back(
-                    std::make_unique<Ground>(GroundType::BROWN, Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE}));
+                m_level.push_back(std::make_unique<GameObject>(
+                    std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE}),
+                    std::make_unique<NullPhysicsComponent>(),
+                    std::make_unique<NullInputComponent>()
+                ));
                 ++idx;
                 break;
             }
             case TileType::PLAYER: {
-                m_level.push_back(std::make_unique<Player>(Vec2<float>(x * BLOCK_SIZE, y * BLOCK_SIZE)));
-                auto player = dynamic_cast<Player *>(m_level[idx].get());
-                m_aCommand.reset(new ACommand(player));
-                m_dCommand.reset(new DCommand(player));
+                
+                auto player = std::make_unique<GameObject>(
+                    std::make_unique<PlayerGraphicsComponent>(),
+                    std::make_unique<PlayerPhysicsComponent>(),
+                    std::make_unique<PlayerInputComponent>()
+                );
+                
+                player->m_acceleration = Vec2<float>{0, 0.0026f};
+                player->m_velocity = Vec2<float>{0, 0};
+                player->m_position = Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE};
+                
+                m_level.push_back(std::move(player));
+                
                 ++idx;
                 break;
             }
@@ -38,21 +56,11 @@ Level::Level(const std::string &path)
     }
 }
 
-Command *Level::getACommand() const
-{
-    return m_aCommand.get();
-}
-
-Command *Level::getDCommand() const
-{
-    return m_dCommand.get();
-}
-
 void Level::render(float dt, SDL_Renderer *renderer)
 {
     for (const auto &el : m_level)
     {
-        el->render(0, renderer);
+        el->render(renderer);
     }
 }
 
@@ -60,11 +68,7 @@ void Level::update(float dt)
 {
     for (const auto &el : m_level)
     {
-        auto col_el = dynamic_cast<Collidable *>(el.get());
-        if (!col_el)
-        {
-            col_el->update(dt);
-        }
+        el->update(dt);
     }
 }
 

@@ -35,14 +35,9 @@ class Game
     static bool instantiated;
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Level> m_level;
-    std::unique_ptr<Command> m_escCommand;
-
     SDL_Event m_event;
 
-    void handleInput(SDL_Event &event);
-    Command *handleKeyInput(SDL_Event &event);
     void render();
-    void keyInput();
     void windowInit();
     void rendererInit();
     void update();

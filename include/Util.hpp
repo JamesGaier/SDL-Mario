@@ -7,6 +7,32 @@
 
 namespace smb
 {
+
+enum class TileType
+{
+    GROUND = 1,
+    PLAYER,
+    BREAKABLE,
+    UP_PIPE,
+    LEFT_PIPE,
+    RIGHT_PIPE,
+    DOWN_PIPE,
+    MUSHROOM,
+    QUESTION,
+    INVISIBLE,
+    SOLID,
+    FLAG_POLE,
+    CASTLE
+};
+
+enum class TileColor
+{
+    BROWN,
+    BLUE,
+    WHITE,
+    GREEN
+};
+
 template <typename T> struct Vec2
 {
     T x, y;

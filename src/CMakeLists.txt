@@ -8,10 +8,14 @@ set(
     ${CMAKE_SOURCE_DIR}/src/Util.cpp
     ${CMAKE_SOURCE_DIR}/src/Ground.cpp
     ${CMAKE_SOURCE_DIR}/src/Level.cpp
+    ${CMAKE_SOURCE_DIR}/src/GameObject.cpp
     ${CMAKE_SOURCE_DIR}/src/PlayerGraphicsComponent.cpp
     ${CMAKE_SOURCE_DIR}/src/PlayerPhysicsComponent.cpp
-    ${CMAKE_SOURCE_DIR}/src/GameObject.cpp
+    ${CMAKE_SOURCE_DIR}/src/PlayerInputComponent.cpp
     ${CMAKE_SOURCE_DIR}/src/StaticTileGraphicsComponent.cpp
+    ${CMAKE_SOURCE_DIR}/src/NullGraphicsComponent.cpp
+    ${CMAKE_SOURCE_DIR}/src/NullPhysicsComponent.cpp
+    ${CMAKE_SOURCE_DIR}/src/NullInputComponent.cpp
 )
 
 add_executable(

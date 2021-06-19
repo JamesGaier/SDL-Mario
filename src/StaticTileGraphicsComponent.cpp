@@ -1,18 +1,28 @@
 #include "StaticTileGraphicsComponent.hpp"
 #include "Util.hpp"
+#include <iostream>
 
 namespace smb
 {
 	
-StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileType type)
+StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2<float> pos)
 {
     auto tilesStr = read_file("textCoordsStatic.txt");
     auto tiles = parse_spritesheet(tilesStr);
-	m_tile = tiles[static_cast<unsigned>(type)];
+	m_tile = tiles[static_cast<unsigned>(color)];
+    m_scaleRect.w = m_size;
+    m_scaleRect.h = m_size;
+    m_scaleRect.x = pos.x;
+    m_scaleRect.y = pos.y;
 }
 
 void StaticTileGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *renderer)
 {
+    if (m_spriteSheet == NULL)
+    {
+        loadImage(toAbsolute("tiles.png"), renderer, &m_spriteSheet);
+    }
+
     SDL_RenderCopy(renderer, m_spriteSheet, &m_tile, &m_scaleRect);
 }
 

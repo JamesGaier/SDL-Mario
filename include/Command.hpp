@@ -12,14 +12,14 @@ class Command
 {
   public:
     virtual ~Command() = default;
-    virtual void execute() = 0;
+    virtual void execute(GameObject &gameObject) = 0;
 };
 
 class EscCommand : public Command
 {
   public:
     EscCommand(EscCallback callback);
-    void execute() override;
+    void execute(GameObject &gameObject) override;
 
   private:
     EscCallback m_callback;
@@ -28,15 +28,15 @@ class EscCommand : public Command
 class ACommand : public Command
 {
   public:
-    ACommand(Player *player);
-    void execute() override;
+    ACommand();
+    void execute(GameObject &gameObject) override;
 };
 
 class DCommand : public Command
 {
   public:
-    DCommand(Player *player);
-    void execute() override;
+    DCommand();
+    void execute(GameObject &gameObject) override;
 };
 
 } // namespace smb

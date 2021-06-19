@@ -10,36 +10,17 @@
 namespace smb
 {
 
-enum class TileType
-{
-    GROUND = 1,
-    PLAYER,
-    BREAKABLE,
-    UP_PIPE,
-    LEFT_PIPE,
-    RIGHT_PIPE,
-    DOWN_PIPE,
-    MUSHROOM,
-    QUESTION,
-    INVISIBLE,
-    SOLID,
-    FLAG_POLE,
-    CASTLE
-};
 
-class Level : public Renderable, public Collidable
+class Level
 {
   public:
     Level(const std::string &path);
     Command *getACommand() const;
     Command *getDCommand() const;
-    void render(float dt, SDL_Renderer *renderer) override;
-    void update(float dt) override;
-
+    void render(float dt, SDL_Renderer *renderer);
+    void update(float dt);
   private:
-    std::vector<std::unique_ptr<Renderable>> m_level;
-    std::unique_ptr<Command> m_aCommand;
-    std::unique_ptr<Command> m_dCommand;
+    std::vector<std::unique_ptr<GameObject>> m_level;
 };
 
 } // namespace smb

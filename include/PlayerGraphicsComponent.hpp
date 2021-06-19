@@ -12,7 +12,7 @@ namespace smb
 class PlayerGraphicsComponent : public GraphicsComponent
 {
   public:
-    PlayerGraphicsComponent(std::vector<SDL_Rect> &frames, SDL_Texture *spriteSheet, SDL_Renderer *renderer);
+    PlayerGraphicsComponent();
 
     ~PlayerGraphicsComponent() = default;
 
@@ -20,9 +20,11 @@ class PlayerGraphicsComponent : public GraphicsComponent
 
   private:
     std::vector<SDL_Rect> m_frames;
-    SDL_Texture *m_spriteSheet;
+    SDL_Texture *m_spriteSheet{nullptr};
     SDL_Rect m_scaleRect;
     const unsigned tempFrame = 14;
+    const unsigned m_width{32};
+    const unsigned m_height{64};
     std::mutex m_renderMutex;
 };
 

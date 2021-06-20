@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Level.hpp"
+#include <chrono>
 #include <SDL_image.h>
 #include <cassert>
 #include <iostream>
@@ -85,16 +86,34 @@ void Game::windowInit()
     }
 }
 
+float Game::getCurrentTime()
+{
+    using namespace std::chrono;
+    auto currentTime = steady_clock::now().time_since_epoch();
+    return duration_cast<milliseconds>(currentTime).count();
+}
+
 void Game::update()
 {
-    auto t = 0.0f;
-    auto dt = 1.0f / 60;
+    constexpr auto dt = 1.0f / 60;
+    auto currentTime = getCurrentTime();
+    auto accumulator = 0.0f;
+
     while (m_playing)
     {
-        auto newTime = std::chrono::steady_clock::now();
-
+        auto newTime = getCurrentTime();
+        auto frameTime = (newTime - currentTime) / 1000.0f;
+        if(frameTime > 0.25)
+            frameTime = 0.25;
+        currentTime = newTime;
+        accumulator += frameTime;
         
-        m_level->update(1);
+        while(accumulator >= dt)
+        {
+            m_level->update(dt);
+            accumulator -= dt;
+        }
+        
     }
 }
 

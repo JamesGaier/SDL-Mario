@@ -8,7 +8,7 @@ namespace smb
 void PlayerInputComponent::update(GameObject &gameObject)
 {
     const auto *currentKeyStates = SDL_GetKeyboardState(nullptr);
-    constexpr auto horizontalSpeed = 0.002;
+    constexpr auto horizontalSpeed = 300;
 
     if (currentKeyStates[SDL_SCANCODE_D])
     {

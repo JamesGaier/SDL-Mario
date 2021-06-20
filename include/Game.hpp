@@ -39,6 +39,7 @@ class Game
     void windowInit();
     void rendererInit();
     void update();
+    float getCurrentTime();
 };
 
 } // namespace smb

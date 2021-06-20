@@ -50,9 +50,10 @@ template <typename T> struct Vec2
         return {x + rhs.x, y + rhs.y};
     }
 
-    Vec2<T> operator+=(Vec2<T> &&rhs)
+    void operator+=(Vec2<T> &&rhs)
     {
-        return {x + rhs.x, y + rhs.y};
+        x += rhs.x;
+        y += rhs.y;
     }
 
     Vec2<T> operator-(Vec2<T> &&rhs)

@@ -39,7 +39,7 @@ Level::Level(const std::string &path)
                                                            std::make_unique<PlayerPhysicsComponent>(),
                                                            std::make_unique<PlayerInputComponent>());
 
-                player->m_acceleration = Vec2<float>{0, 0.00000000026f}; // magic number please make name value please
+                player->m_acceleration = Vec2<float>{0, 20}; // magic number please make name value please
                 player->m_velocity = Vec2<float>{0, 0};
                 player->m_position = Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE};
 

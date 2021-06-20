@@ -1,6 +1,5 @@
 #include "Util.hpp"
 #include "Ground.hpp"
-#include "Player.hpp"
 #include <SDL_image.h>
 #include <filesystem>
 #include <fstream>
@@ -118,7 +117,7 @@ std::vector<SDL_Rect> parse_spritesheet(const std::string &coords)
     return result;
 }
 
-void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **texture)
+SDL_Texture *loadImage(const std::string &path, SDL_Renderer *renderer)
 {
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
 
@@ -128,13 +127,14 @@ void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **te
     }
     else
     {
-        *texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+        auto *texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
         if (texture == NULL)
         {
             std::cout << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << std::endl;
         }
 
         SDL_FreeSurface(loadedSurface);
+        return texture;
     }
 }
 } // namespace smb

@@ -2,8 +2,8 @@
 #include "Level.hpp"
 #include <SDL_image.h>
 #include <cassert>
-#include <thread>
 #include <iostream>
+#include <thread>
 
 namespace smb
 {
@@ -34,8 +34,6 @@ Game::~Game()
     SDL_Quit();
 }
 
-
-
 void Game::render()
 {
     windowInit();
@@ -43,7 +41,7 @@ void Game::render()
     {
         while (SDL_PollEvent(&m_event))
         {
-            if(m_event.type == SDL_QUIT || m_event.key.keysym.sym == SDLK_ESCAPE)
+            if (m_event.type == SDL_QUIT || m_event.key.keysym.sym == SDLK_ESCAPE)
             {
                 m_playing = false;
             }
@@ -70,7 +68,7 @@ void Game::windowInit()
         std::cout << "Window could not be created" << std::endl;
     }
 
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (m_renderer == NULL)
     {
         std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
@@ -89,14 +87,15 @@ void Game::windowInit()
 
 void Game::update()
 {
+    auto t = 0.0f;
+    auto dt = 1.0f / 60;
     while (m_playing)
     {
+        auto newTime = std::chrono::steady_clock::now();
+
+        
         m_level->update(1);
     }
-}
-
-void Game::rendererInit()
-{
 }
 
 } // namespace smb

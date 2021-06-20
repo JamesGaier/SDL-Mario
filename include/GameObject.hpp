@@ -20,8 +20,8 @@ class GameObject
     Vec2<float> m_acceleration;
     constexpr static float MAX_VELOCITY = 0.005;
 
-    GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
-               std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent);
+    GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent, std::unique_ptr<PhysicsComponent> physicsComponent,
+               std::unique_ptr<InputComponent> inputComponent);
 
     void update(float dt);
     void render(SDL_Renderer *renderer);

@@ -15,9 +15,9 @@ Ground::Ground(GroundType &&type, const Vec2<float> &pos) : m_type{std::move(typ
 
 void Ground::render(float dt, SDL_Renderer *renderer)
 {
-    if (m_texture == NULL)
+    if (m_texture == nullptr)
     {
-        loadImage(toAbsolute("tiles.png"), renderer, &m_texture);
+        m_texture = loadImage(toAbsolute("tiles.png"), renderer);
     }
 
     SDL_RenderCopy(renderer, m_texture, &m_spriteSheetPos, &m_boundingBox);

@@ -2,7 +2,6 @@
 
 #include "Ground.hpp"
 #include "Level.hpp"
-#include "Player.hpp"
 #include <SDL.h>
 #include <atomic>
 #include <memory>

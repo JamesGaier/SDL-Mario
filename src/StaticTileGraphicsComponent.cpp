@@ -4,12 +4,12 @@
 
 namespace smb
 {
-	
+
 StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2<float> pos)
 {
     auto tilesStr = read_file("textCoordsStatic.txt");
     auto tiles = parse_spritesheet(tilesStr);
-	m_tile = tiles[static_cast<unsigned>(color)];
+    m_tile = tiles[static_cast<unsigned>(color)];
     m_scaleRect.w = m_size;
     m_scaleRect.h = m_size;
     m_scaleRect.x = pos.x;
@@ -18,12 +18,12 @@ StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2<f
 
 void StaticTileGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *renderer)
 {
-    if (m_spriteSheet == NULL)
+    if (m_spriteSheet == nullptr)
     {
-        loadImage(toAbsolute("tiles.png"), renderer, &m_spriteSheet);
+        m_spriteSheet = loadImage(toAbsolute("tiles.png"), renderer);
     }
 
     SDL_RenderCopy(renderer, m_spriteSheet, &m_tile, &m_scaleRect);
 }
 
-}
+} // namespace smb

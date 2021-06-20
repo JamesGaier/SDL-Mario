@@ -7,9 +7,9 @@ namespace smb
 
 class PlayerInputComponent : public InputComponent
 {
-public:
-	~PlayerInputComponent() = default;
-	void update(GameObject &gameObject);
+  public:
+    ~PlayerInputComponent() = default;
+    void update(GameObject &gameObject);
 };
 
-}
+} // namespace smb

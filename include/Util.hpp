@@ -65,11 +65,11 @@ template <typename T> struct Vec2
     {
         return (x + rhs.x) * (y + rhs.y);
     }
-    
+
     Vec2<T> operator*(T rhs)
     {
         return {rhs * x, rhs * y};
-    } 
+    }
 };
 
 template <typename T> struct Rect
@@ -87,6 +87,6 @@ std::vector<std::vector<int>> parse_level(const std::string &coords);
 
 std::vector<SDL_Rect> parse_spritesheet(const std::string &coords);
 
-void loadImage(const std::string &path, SDL_Renderer *renderer, SDL_Texture **texture);
+SDL_Texture *loadImage(const std::string &path, SDL_Renderer *renderer);
 
 } // namespace smb

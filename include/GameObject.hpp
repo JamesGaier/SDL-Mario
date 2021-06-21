@@ -18,10 +18,12 @@ class GameObject
     Vec2<float> m_position;
     Vec2<float> m_velocity;
     Vec2<float> m_acceleration;
+    SDL_Rect m_scaleRect{};
+    unsigned long ID;
     constexpr static float MAX_VELOCITY = 0.005;
 
     GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent, std::unique_ptr<PhysicsComponent> physicsComponent,
-               std::unique_ptr<InputComponent> inputComponent);
+               std::unique_ptr<InputComponent> inputComponent, unsigned long ID, SDL_Rect m_scaleRect);
 
     void update(float dt);
     void render(SDL_Renderer *renderer);

@@ -29,19 +29,24 @@ Level::Level(const std::string &path)
                 m_level.push_back(std::make_unique<GameObject>(
                     std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN,
                                                                   Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE}),
-                    std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>()));
+                    std::make_unique<NullPhysicsComponent>(),
+                    std::make_unique<NullInputComponent>(), 
+                    idx,
+                    SDL_Rect{static_cast<int>(x) * BLOCK_SIZE, static_cast<int>(y) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE}));
                 ++idx;
                 break;
             }
             case TileType::PLAYER: {
-
+                constexpr int MARIO_WIDTH = 32;
+                constexpr int MARIO_HEIGHT = 64;
                 auto player = std::make_unique<GameObject>(std::make_unique<PlayerGraphicsComponent>(),
-                                                           std::make_unique<PlayerPhysicsComponent>(),
-                                                           std::make_unique<PlayerInputComponent>());
+                                                           std::make_unique<PlayerPhysicsComponent>(m_level),
+                                                           std::make_unique<PlayerInputComponent>(),
+                                                           idx,
+                                                           SDL_Rect{static_cast<int>(x) * BLOCK_SIZE, static_cast<int>(y) * BLOCK_SIZE, MARIO_WIDTH, MARIO_HEIGHT});
 
-                player->m_acceleration = Vec2<float>{0, 20}; // magic number please make name value please
+                player->m_acceleration = Vec2<float>{0, 80}; // magic number please make name value please
                 player->m_velocity = Vec2<float>{0, 0};
-                player->m_position = Vec2<float>{x * BLOCK_SIZE, y * BLOCK_SIZE};
 
                 m_level.push_back(std::move(player));
 

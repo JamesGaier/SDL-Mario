@@ -113,7 +113,6 @@ void Game::update()
             m_level->update(dt);
             accumulator -= dt;
         }
-        
     }
 }
 

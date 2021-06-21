@@ -6,10 +6,14 @@ namespace smb
 
 GameObject::GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
                        std::unique_ptr<PhysicsComponent> physicsComponent,
-                       std::unique_ptr<InputComponent> inputComponent)
+                       std::unique_ptr<InputComponent> inputComponent,
+                       unsigned long OBJECT_ID,
+                       SDL_Rect scaleRect)
     : m_graphicsComponent{std::move(graphicsComponent)}, m_physicsComponent{std::move(physicsComponent)},
-      m_inputComponent{std::move(inputComponent)}
+      m_inputComponent{std::move(inputComponent)}, ID{OBJECT_ID}, m_scaleRect{scaleRect}
 {
+    m_position.x = m_scaleRect.x;
+    m_position.y = m_scaleRect.y;
 }
 
 void GameObject::update(float dt)

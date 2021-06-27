@@ -5,7 +5,7 @@
 namespace smb
 {
 
-StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2<float> pos)
+StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2f pos)
 {
     auto tilesStr = read_file("textCoordsStatic.txt");
     auto tiles = parse_spritesheet(tilesStr);

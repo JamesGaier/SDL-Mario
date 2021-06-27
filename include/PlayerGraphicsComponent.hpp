@@ -2,6 +2,7 @@
 
 #include "GameObject.hpp"
 #include "GraphicsComponent.hpp"
+#include "ImageRenderer.hpp"
 #include <SDL.h>
 #include <mutex>
 #include <vector>
@@ -20,6 +21,7 @@ class PlayerGraphicsComponent : public GraphicsComponent
 
   private:
     std::vector<SDL_Rect> m_frames;
+    ImageRenderer m_renderer;
     SDL_Texture *m_spriteSheet{nullptr};
     const unsigned tempFrame = 14;
     const unsigned m_width{32};

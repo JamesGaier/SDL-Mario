@@ -1,8 +1,8 @@
 #include "Game.hpp"
 #include "Level.hpp"
-#include <chrono>
 #include <SDL_image.h>
 #include <cassert>
+#include <chrono>
 #include <iostream>
 #include <thread>
 
@@ -29,8 +29,8 @@ Game::~Game()
     instantiated = false;
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
-    m_window = NULL;
-    m_renderer = NULL;
+    m_window = nullptr;
+    m_renderer = nullptr;
     IMG_Quit();
     SDL_Quit();
 }
@@ -64,13 +64,13 @@ void Game::windowInit()
     m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
                                 SDL_WINDOW_SHOWN);
 
-    if (m_window == NULL)
+    if (m_window == nullptr)
     {
         std::cout << "Window could not be created" << std::endl;
     }
 
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (m_renderer == NULL)
+    if (m_renderer == nullptr)
     {
         std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         m_playing = false;
@@ -103,12 +103,12 @@ void Game::update()
     {
         auto newTime = getCurrentTime();
         auto frameTime = (newTime - currentTime) / 1000.0f;
-        if(frameTime > 0.25)
+        if (frameTime > 0.25)
             frameTime = 0.25;
         currentTime = newTime;
         accumulator += frameTime;
-        
-        while(accumulator >= dt)
+
+        while (accumulator >= dt)
         {
             m_level->update(dt);
             accumulator -= dt;

@@ -1,14 +1,64 @@
 #include "Util.hpp"
-#include "Ground.hpp"
 #include <SDL_image.h>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 
 namespace smb
 {
+
+Vec2f operator/(float lhs, const Vec2f &rhs)
+{
+    return {lhs / rhs.x, lhs / rhs.y};
+}
+
+Vec2f operator/(const Vec2f &lhs, float rhs)
+{
+    return {lhs.x / rhs, lhs.y / rhs};
+}
+
+Vec2f operator-(float lhs, const Vec2f &rhs)
+{
+    return {lhs / rhs.x, lhs / rhs.y};
+}
+
+Vec2f operator-(const Vec2f &lhs, float rhs)
+{
+    return {lhs.x / rhs, lhs.y / rhs};
+}
+
+Vec2f operator-(const Vec2f &lhs, const Vec2f &rhs)
+{
+    return {lhs.x - rhs.x, lhs.y - rhs.y};
+}
+
+Vec2f operator+(const Vec2f &lhs, const Vec2f &rhs)
+{
+    return {lhs.x + rhs.x, lhs.y + rhs.y};
+}
+
+Vec2f operator*(const Vec2f &lhs, const Vec2f &rhs)
+{
+    return {lhs.x * rhs.x, lhs.y * rhs.y};
+}
+
+Vec2f operator*(float lhs, const Vec2f &rhs)
+{
+    return {lhs * rhs.x, lhs * rhs.y};
+}
+
+Vec2f operator*(const Vec2f &lhs, float rhs)
+{
+    return {lhs.x * rhs, lhs.y * rhs};
+}
+
+Vec2f operator+(const Vec2f &lhs, const float &rhs)
+{
+    return {lhs.x + rhs, lhs.y + rhs};
+}
 
 std::string toAbsolute(const std::string &path, const std::string &parent)
 {
@@ -121,14 +171,16 @@ SDL_Texture *loadImage(const std::string &path, SDL_Renderer *renderer)
 {
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
 
-    if (loadedSurface == NULL)
+    if (loadedSurface == nullptr)
     {
-        std::cout << "Unable to load image " << path.c_str() << "SDL_image Error: " << IMG_GetError();
+        std::stringstream ss;
+        ss << "Unable to load image " << path.c_str() << "SDL_image Error: " << IMG_GetError();
+        throw std::runtime_error(ss.str());
     }
     else
     {
         auto *texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-        if (texture == NULL)
+        if (texture == nullptr)
         {
             std::cout << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << std::endl;
         }

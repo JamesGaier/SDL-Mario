@@ -8,7 +8,7 @@ namespace smb
 class StaticTileGraphicsComponent : public GraphicsComponent
 {
   public:
-    StaticTileGraphicsComponent(TileColor tileColor, Vec2<float> pos);
+    StaticTileGraphicsComponent(TileColor tileColor, Vec2f pos);
 
     ~StaticTileGraphicsComponent() override = default;
 

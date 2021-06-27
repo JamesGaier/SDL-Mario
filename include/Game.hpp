@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Ground.hpp"
 #include "Level.hpp"
 #include <SDL.h>
 #include <atomic>
@@ -28,8 +27,8 @@ class Game
     std::string m_title{};
     unsigned m_width;
     unsigned m_height;
-    SDL_Window *m_window = NULL;
-    SDL_Renderer *m_renderer = NULL;
+    SDL_Window *m_window{nullptr};
+    SDL_Renderer *m_renderer{nullptr};
     static bool instantiated;
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Level> m_level;

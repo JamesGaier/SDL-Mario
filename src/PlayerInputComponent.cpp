@@ -12,16 +12,16 @@ void PlayerInputComponent::update(GameObject &gameObject)
 
     if (currentKeyStates[SDL_SCANCODE_D])
     {
-        gameObject.m_velocity.x = horizontalSpeed;
+        gameObject.velocity.x = horizontalSpeed;
     }
     else if (currentKeyStates[SDL_SCANCODE_A])
     {
-        gameObject.m_velocity.x = -horizontalSpeed;
+        gameObject.velocity.x = -horizontalSpeed;
     }
     else
     {
-        gameObject.m_acceleration = Vec2<float>{0, gameObject.m_acceleration.y};
-        gameObject.m_velocity = Vec2<float>{0, gameObject.m_velocity.y};
+        gameObject.acceleration = Vec2f{0, gameObject.acceleration.y};
+        gameObject.velocity = Vec2f{0, gameObject.velocity.y};
     }
 }
 

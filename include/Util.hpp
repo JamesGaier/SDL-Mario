@@ -1,5 +1,4 @@
 #pragma once
-#include "Renderable.hpp"
 #include <SDL.h>
 #include <array>
 #include <memory>
@@ -33,49 +32,43 @@ enum class TileColor
     GREEN
 };
 
-template <typename T> struct Vec2
+struct Vec2f
 {
-    T x, y;
+    float x, y;
 
-    Vec2() : x{0}, y{0}
+    Vec2f() : x{0}, y{0}
     {
     }
 
-    Vec2(T x, T y) : x{x}, y{y}
+    Vec2f(float x, float y) : x{x}, y{y}
     {
     }
 
-    Vec2<T> operator+(Vec2<T> &&rhs)
-    {
-        return {x + rhs.x, y + rhs.y};
-    }
+    friend Vec2f operator+(const Vec2f &lhs, const Vec2f &rhs);
+    friend Vec2f operator+(const Vec2f &lhs, const float &rhs);
 
-    void operator+=(Vec2<T> &&rhs)
+    void operator+=(Vec2f &&rhs)
     {
         x += rhs.x;
         y += rhs.y;
     }
 
-    Vec2<T> operator-(Vec2<T> &&rhs)
-    {
-        return {x - rhs.x, y - rhs.y};
-    }
+    friend Vec2f operator-(const Vec2f &lhs, const Vec2f &rhs);
+    friend Vec2f operator-(float lhs, const Vec2f &rhs);
+    friend Vec2f operator-(const Vec2f &lhs, float rhs);
 
-    // dot product
-    T operator*(Vec2<T> &&rhs)
-    {
-        return (x + rhs.x) * (y + rhs.y);
-    }
+    friend Vec2f operator/(float lhs, const Vec2f &rhs);
+    friend Vec2f operator/(const Vec2f &lhs, float rhs);
 
-    Vec2<T> operator*(T rhs)
-    {
-        return {rhs * x, rhs * y};
-    }
+    friend Vec2f operator*(float lhs, const Vec2f &rhs);
+    friend Vec2f operator*(const Vec2f &lhs, float rhs);
+    friend Vec2f operator*(const Vec2f &lhs, const Vec2f &rhs);
 };
 
-template <typename T> struct Rect
+struct Rect
 {
-    std::array<Vec2<T>, 4> m_verts;
+    Vec2f pos;
+    Vec2f size;
 };
 
 std::string read_file(const std::string &path);

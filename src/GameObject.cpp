@@ -1,5 +1,6 @@
 #include "GameObject.hpp"
 #include <SDL.h>
+#include <iostream>
 
 namespace smb
 {

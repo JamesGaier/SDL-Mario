@@ -12,22 +12,18 @@ namespace smb
 class PlayerPhysicsComponent : public PhysicsComponent
 {
   public:
+  using World = std::vector<std::unique_ptr<GameObject>>; 
     ~PlayerPhysicsComponent() = default;
 
-    PlayerPhysicsComponent(std::vector<std::unique_ptr<GameObject>> &world);
+    PlayerPhysicsComponent(World &world);
 
     void update(GameObject &gameObject, float dt) override;
 
   private:
-    void AABB(GameObject &gameObject);
-
-    void resolveCollision(GameObject &gameObject, Vec2f &rect);
-
-    bool collision(GameObject &gameObject, Vec2f &ray_dir, const Rect &target, Vec2f contactPoint, Vec2f contactNormal,
-                   float &hitNear);
+    void AABB(GameObject &gameObject, const float dt);
 
     std::mutex m_updateMutex;
-    std::vector<std::unique_ptr<GameObject>> &m_world;
+    World &m_world;
 };
 
 } // namespace smb

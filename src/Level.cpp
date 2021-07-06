@@ -15,14 +15,14 @@ std::unique_ptr<GameObject> Level::makeGround(int x, int y, int idx)
     return std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, Vec2f{x, y}),
                                         std::make_unique<NullPhysicsComponent>(),
                                         std::make_unique<NullInputComponent>(), idx,
-                                        Rect{Vec2f{x, y}, Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
+                                        Rect(Vec2f{x, y}, Vec2f{BLOCK_SIZE, BLOCK_SIZE}));
 }
 
 std::unique_ptr<GameObject> Level::makePlayer(int x, int y, int idx)
 {
     return std::make_unique<GameObject>(
         std::make_unique<PlayerGraphicsComponent>(), std::make_unique<PlayerPhysicsComponent>(m_level),
-        std::make_unique<PlayerInputComponent>(), idx, Rect{Vec2f{x, y}, Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
+        std::make_unique<PlayerInputComponent>(), idx, Rect(Vec2f{x, y}, Vec2f{MARIO_WIDTH, MARIO_HEIGHT}));
 }
 
 Level::Level(const std::string &path)
@@ -47,8 +47,8 @@ Level::Level(const std::string &path)
             case TileType::PLAYER: {
                 auto player = makePlayer(x * BLOCK_SIZE, y * BLOCK_SIZE, idx);
 
-                player->acceleration = Vec2f{0, 80}; // magic number please make name value please
-                player->velocity = Vec2f{0, 0};
+                player->rect.acceleration = Vec2f{0, 80}; // magic number please make name value please
+                player->rect.velocity = Vec2f{0, 0};
 
                 m_level.push_back(std::move(player));
 

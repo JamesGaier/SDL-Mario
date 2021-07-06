@@ -16,8 +16,6 @@ class GameObject
 {
   public:
     Rect rect;
-    Vec2f velocity;
-    Vec2f acceleration;
     unsigned long ID;
 
     GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent, std::unique_ptr<PhysicsComponent> physicsComponent,

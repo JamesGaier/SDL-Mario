@@ -43,7 +43,13 @@ struct Vec2f
     Vec2f(float x, float y) : x{x}, y{y}
     {
     }
-
+    
+    Vec2f(const Vec2f &copy)
+    : x{copy.x}
+    , y{copy.y}
+    {
+    }
+    
     friend Vec2f operator+(const Vec2f &lhs, const Vec2f &rhs);
     friend Vec2f operator+(const Vec2f &lhs, const float &rhs);
 
@@ -68,7 +74,15 @@ struct Vec2f
 struct Rect
 {
     Vec2f pos;
+    Vec2f velocity;
+    Vec2f acceleration;
     Vec2f size;
+    
+    Rect(const Vec2f &pos_, const Vec2f &size_)
+    : pos(pos_)
+    , size(size_)
+    {
+    }
 };
 
 std::string read_file(const std::string &path);

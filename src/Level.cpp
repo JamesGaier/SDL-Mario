@@ -13,11 +13,11 @@ namespace smb
 std::unique_ptr<GameObject> Level::makeGround(float x, float y, int idx)
 {
     auto ground =
-        std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, Vec2f{x, y}),
+        std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}),
                                      std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(),
-                                     idx, Rect{Vec2f{x, y}, Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
+                                     idx, math::Rect{math::Vec2f{x, y}, math::Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
 
-    ground->boundingBox = Rect{Vec2f{x, y}, Vec2f{x * BLOCK_SIZE, y * BLOCK_SIZE}};
+    ground->boundingBox = math::Rect{math::Vec2f{x, y}, math::Vec2f{x * BLOCK_SIZE, y * BLOCK_SIZE}};
 
     return ground;
 }
@@ -26,15 +26,15 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y, int idx)
 {
     auto player = std::make_unique<GameObject>(
         std::make_unique<PlayerGraphicsComponent>(), std::make_unique<PlayerPhysicsComponent>(m_level),
-        std::make_unique<PlayerInputComponent>(), idx, Rect{Vec2f{x, y}, Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
+        std::make_unique<PlayerInputComponent>(), idx, math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
 
     constexpr static auto START_OFFSET = 4;
     player->boundingBox.size.x -= START_OFFSET;
 
     constexpr static auto GRAVITY = 800.0f;
     constexpr static auto INITIAL_VERTICAL_VELOCITY = 300.0f;
-    player->accel = Vec2f{0, GRAVITY};
-    player->vel = Vec2f{0, INITIAL_VERTICAL_VELOCITY};
+    player->accel = math::Vec2f{0, GRAVITY};
+    player->vel = math::Vec2f{0, INITIAL_VERTICAL_VELOCITY};
 
     return player;
 }

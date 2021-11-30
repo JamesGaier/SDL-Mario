@@ -16,7 +16,7 @@ void PlayerPhysicsComponent::update(GameObject &gameObject, float dt)
     move(gameObject, gameObject.ID, dt);
 }
 
-bool intersects(const Rect &lhs, const Rect &rhs)
+bool intersects(const math::Rect &lhs, const math::Rect &rhs)
 {
     return lhs.pos.x < rhs.pos.x + rhs.size.x && lhs.pos.x + lhs.size.x > rhs.pos.x &&
            lhs.pos.y < rhs.pos.y + rhs.size.y && lhs.pos.y + lhs.size.y > rhs.pos.y;

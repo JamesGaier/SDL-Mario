@@ -10,55 +10,6 @@
 namespace smb
 {
 
-Vec2f operator/(float lhs, const Vec2f &rhs)
-{
-    return {lhs / rhs.x, lhs / rhs.y};
-}
-
-Vec2f operator/(const Vec2f &lhs, float rhs)
-{
-    return {lhs.x / rhs, lhs.y / rhs};
-}
-
-Vec2f operator-(float lhs, const Vec2f &rhs)
-{
-    return {lhs / rhs.x, lhs / rhs.y};
-}
-
-Vec2f operator-(const Vec2f &lhs, float rhs)
-{
-    return {lhs.x / rhs, lhs.y / rhs};
-}
-
-Vec2f operator-(const Vec2f &lhs, const Vec2f &rhs)
-{
-    return {lhs.x - rhs.x, lhs.y - rhs.y};
-}
-
-Vec2f operator+(const Vec2f &lhs, const Vec2f &rhs)
-{
-    return {lhs.x + rhs.x, lhs.y + rhs.y};
-}
-
-Vec2f operator*(const Vec2f &lhs, const Vec2f &rhs)
-{
-    return {lhs.x * rhs.x, lhs.y * rhs.y};
-}
-
-Vec2f operator*(float lhs, const Vec2f &rhs)
-{
-    return {lhs * rhs.x, lhs * rhs.y};
-}
-
-Vec2f operator*(const Vec2f &lhs, float rhs)
-{
-    return {lhs.x * rhs, lhs.y * rhs};
-}
-
-Vec2f operator+(const Vec2f &lhs, const float &rhs)
-{
-    return {lhs.x + rhs, lhs.y + rhs};
-}
 
 std::string toAbsolute(const std::string &path, const std::string &parent)
 {

@@ -33,44 +33,6 @@ enum class TileColor
     GREEN
 };
 
-struct Vec2f
-{
-    float x, y;
-
-    Vec2f() : x{0}, y{0}
-    {
-    }
-
-    Vec2f(float x, float y) : x{x}, y{y}
-    {
-    }
-
-    friend Vec2f operator+(const Vec2f &lhs, const Vec2f &rhs);
-    friend Vec2f operator+(const Vec2f &lhs, const float &rhs);
-
-    void operator+=(Vec2f &&rhs)
-    {
-        x += rhs.x;
-        y += rhs.y;
-    }
-
-    friend Vec2f operator-(const Vec2f &lhs, const Vec2f &rhs);
-    friend Vec2f operator-(float lhs, const Vec2f &rhs);
-    friend Vec2f operator-(const Vec2f &lhs, float rhs);
-
-    friend Vec2f operator/(float lhs, const Vec2f &rhs);
-    friend Vec2f operator/(const Vec2f &lhs, float rhs);
-
-    friend Vec2f operator*(float lhs, const Vec2f &rhs);
-    friend Vec2f operator*(const Vec2f &lhs, float rhs);
-    friend Vec2f operator*(const Vec2f &lhs, const Vec2f &rhs);
-};
-
-struct Rect
-{
-    Vec2f pos;
-    Vec2f size;
-};
 
 std::string read_file(const std::string &path);
 

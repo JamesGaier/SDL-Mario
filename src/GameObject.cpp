@@ -7,7 +7,7 @@ namespace smb
 
 GameObject::GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
                        std::unique_ptr<PhysicsComponent> physicsComponent,
-                       std::unique_ptr<InputComponent> inputComponent, unsigned long OBJECT_ID, Rect scaleRect)
+                       std::unique_ptr<InputComponent> inputComponent, unsigned long OBJECT_ID, math::Rect scaleRect)
     : renderBox{scaleRect}, ID{OBJECT_ID}, m_graphicsComponent{std::move(graphicsComponent)},
       m_physicsComponent{std::move(physicsComponent)}, m_inputComponent{std::move(inputComponent)}
 {

@@ -1,11 +1,10 @@
 #include "StaticTileGraphicsComponent.hpp"
-#include "Util.hpp"
 #include <iostream>
 
 namespace smb
 {
 
-StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2f pos)
+StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::Vec2f pos)
 {
     auto tilesStr = read_file("textCoordsStatic.txt");
     auto tiles = parse_spritesheet(tilesStr);

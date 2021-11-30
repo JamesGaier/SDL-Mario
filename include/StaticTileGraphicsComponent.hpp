@@ -1,4 +1,5 @@
 #include "GraphicsComponent.hpp"
+#include "Math.hpp"
 #include "Util.hpp"
 #include <SDL.h>
 
@@ -8,7 +9,7 @@ namespace smb
 class StaticTileGraphicsComponent : public GraphicsComponent
 {
   public:
-    StaticTileGraphicsComponent(TileColor tileColor, Vec2f pos);
+    StaticTileGraphicsComponent(TileColor tileColor, math::Vec2f pos);
 
     ~StaticTileGraphicsComponent() override = default;
 

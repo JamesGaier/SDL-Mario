@@ -23,8 +23,8 @@ void PlayerInputComponent::update(GameObject &gameObject)
     }
     else
     {
-        gameObject.accel = Vec2f{0, gameObject.accel.y};
-        gameObject.vel = Vec2f{0, gameObject.vel.y};
+        gameObject.accel = math::Vec2f{0, gameObject.accel.y};
+        gameObject.vel = math::Vec2f{0, gameObject.vel.y};
     }
 }
 

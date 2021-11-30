@@ -1,5 +1,5 @@
 #pragma once
-#include "Util.hpp"
+#include "Math.hpp"
 #include <SDL.h>
 #include <mutex>
 
@@ -9,7 +9,7 @@ namespace smb
 class ImageRenderer
 {
   public:
-    void render(SDL_Renderer *renderer, SDL_Texture *tex, SDL_Rect &frame, Rect &rect)
+    void render(SDL_Renderer *renderer, SDL_Texture *tex, SDL_Rect &frame, math::Rect &rect)
     {
         {
             std::lock_guard<std::mutex> lg{m_updateMutex};

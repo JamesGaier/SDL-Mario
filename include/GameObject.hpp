@@ -2,7 +2,7 @@
 #include "GraphicsComponent.hpp"
 #include "InputComponent.hpp"
 #include "PhysicsComponent.hpp"
-#include "Util.hpp"
+#include "Math.hpp"
 #include <SDL.h>
 #include <memory>
 #include <vector>
@@ -16,15 +16,15 @@ class InputComponent;
 class GameObject
 {
   public:
-    Vec2f pos;
-    Vec2f vel;
-    Vec2f accel;
-    Rect boundingBox;
-    Rect renderBox;
+    math::Vec2f pos;
+    math::Vec2f vel;
+    math::Vec2f accel;
+    math::Rect boundingBox;
+    math::Rect renderBox;
     unsigned long ID;
 
     GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent, std::unique_ptr<PhysicsComponent> physicsComponent,
-               std::unique_ptr<InputComponent> inputComponent, unsigned long ID, Rect scaleRect);
+               std::unique_ptr<InputComponent> inputComponent, unsigned long ID, math::Rect scaleRect);
 
     void update(float dt);
     void render(SDL_Renderer *renderer);

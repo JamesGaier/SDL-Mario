@@ -5,6 +5,7 @@
 #include "Util.hpp"
 #include <SDL.h>
 #include <memory>
+#include <vector>
 
 namespace smb
 {
@@ -15,7 +16,11 @@ class InputComponent;
 class GameObject
 {
   public:
-    Rect rect;
+    Vec2f pos;
+    Vec2f vel;
+    Vec2f accel;
+    Rect boundingBox;
+    Rect renderBox;
     unsigned long ID;
 
     GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent, std::unique_ptr<PhysicsComponent> physicsComponent,

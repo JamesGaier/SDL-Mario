@@ -11,7 +11,7 @@ class NullGraphicsComponent final : public GraphicsComponent
 {
     ~NullGraphicsComponent() override = default;
 
-    void render(GameObject &gameObject, SDL_Renderer *renderer) override
+    void render(GameObject &, SDL_Renderer *) override
     {
     }
 };

@@ -63,7 +63,7 @@ Vec2f operator+(const Vec2f &lhs, const float &rhs)
 std::string toAbsolute(const std::string &path, const std::string &parent)
 {
     namespace fs = std::filesystem;
-    fs::path programPath = fs::current_path();
+    fs::path programPath = fs::current_path().parent_path();
     programPath /= parent;
     programPath /= path;
     return programPath.string();

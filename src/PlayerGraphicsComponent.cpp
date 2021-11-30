@@ -18,7 +18,7 @@ void PlayerGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *rende
         m_spriteSheet = loadImage(toAbsolute("characters.gif"), renderer);
     }
 
-    m_renderer.render(renderer, m_spriteSheet, m_frames[tempFrame], gameObject.rect);
+    m_renderer.render(renderer, m_spriteSheet, m_frames[tempFrame], gameObject.renderBox);
 }
 
 } // namespace smb

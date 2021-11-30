@@ -10,19 +10,33 @@
 namespace smb
 {
 
-std::unique_ptr<GameObject> Level::makeGround(int x, int y, int idx)
+std::unique_ptr<GameObject> Level::makeGround(float x, float y, int idx)
 {
-    return std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, Vec2f{x, y}),
-                                        std::make_unique<NullPhysicsComponent>(),
-                                        std::make_unique<NullInputComponent>(), idx,
-                                        Rect(Vec2f{x, y}, Vec2f{BLOCK_SIZE, BLOCK_SIZE}));
+    auto ground =
+        std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, Vec2f{x, y}),
+                                     std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(),
+                                     idx, Rect{Vec2f{x, y}, Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
+
+    ground->boundingBox = Rect{Vec2f{x, y}, Vec2f{x * BLOCK_SIZE, y * BLOCK_SIZE}};
+
+    return ground;
 }
 
-std::unique_ptr<GameObject> Level::makePlayer(int x, int y, int idx)
+std::unique_ptr<GameObject> Level::makePlayer(float x, float y, int idx)
 {
-    return std::make_unique<GameObject>(
+    auto player = std::make_unique<GameObject>(
         std::make_unique<PlayerGraphicsComponent>(), std::make_unique<PlayerPhysicsComponent>(m_level),
-        std::make_unique<PlayerInputComponent>(), idx, Rect(Vec2f{x, y}, Vec2f{MARIO_WIDTH, MARIO_HEIGHT}));
+        std::make_unique<PlayerInputComponent>(), idx, Rect{Vec2f{x, y}, Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
+
+    constexpr static auto START_OFFSET = 4;
+    player->boundingBox.size.x -= START_OFFSET;
+
+    constexpr static auto GRAVITY = 800.0f;
+    constexpr static auto INITIAL_VERTICAL_VELOCITY = 300.0f;
+    player->accel = Vec2f{0, GRAVITY};
+    player->vel = Vec2f{0, INITIAL_VERTICAL_VELOCITY};
+
+    return player;
 }
 
 Level::Level(const std::string &path)
@@ -30,30 +44,31 @@ Level::Level(const std::string &path)
     auto levelStr = read_file(path);
     auto levelData = parse_level(levelStr);
 
-    const auto HEIGHT = 900;
     auto idx = 0;
-    for (auto y = 0u; y < levelData.size(); ++y)
+    for (float y = 0u; y < levelData.size(); ++y)
     {
-        for (auto x = 0u; x < levelData[y].size(); ++x)
+        for (float x = 0u; x < levelData[y].size(); ++x)
         {
             auto type = static_cast<TileType>(levelData[y][x]);
             switch (type)
             {
+            case TileType::AIR:
+                break;
             case TileType::GROUND: {
-                m_level.push_back(makeGround(x * BLOCK_SIZE, y * BLOCK_SIZE, idx));
+                auto ground = makeGround(x * BLOCK_SIZE, y * BLOCK_SIZE, idx);
+                m_level.push_back(std::move(ground));
                 ++idx;
                 break;
             }
-            case TileType::PLAYER: {
+            case TileType::SPAWN: {
                 auto player = makePlayer(x * BLOCK_SIZE, y * BLOCK_SIZE, idx);
-
-                player->rect.acceleration = Vec2f{0, 80}; // magic number please make name value please
-                player->rect.velocity = Vec2f{0, 0};
-
                 m_level.push_back(std::move(player));
-
                 ++idx;
                 break;
+            }
+            default: {
+                std::cout << static_cast<int>(type) << " Is not currently supported." << std::endl;
+                exit(1);
             }
             }
         }

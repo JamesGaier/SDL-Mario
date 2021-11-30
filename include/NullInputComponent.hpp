@@ -8,7 +8,7 @@ class NullInputComponent final : public InputComponent
 {
   public:
     ~NullInputComponent() override = default;
-    void update(GameObject &GameObject) override
+    void update(GameObject &) override
     {
     }
 };

@@ -12,7 +12,7 @@ namespace smb
 class PlayerPhysicsComponent : public PhysicsComponent
 {
   public:
-  using World = std::vector<std::unique_ptr<GameObject>>; 
+    using World = std::vector<std::unique_ptr<GameObject>>;
     ~PlayerPhysicsComponent() = default;
 
     PlayerPhysicsComponent(World &world);
@@ -20,10 +20,12 @@ class PlayerPhysicsComponent : public PhysicsComponent
     void update(GameObject &gameObject, float dt) override;
 
   private:
-    void AABB(GameObject &gameObject, const float dt);
+    void move(GameObject &go, const unsigned long ID, const float dt);
 
     std::mutex m_updateMutex;
     World &m_world;
+    bool m_onGround{false};
+    bool m_jumping{false};
 };
 
 } // namespace smb

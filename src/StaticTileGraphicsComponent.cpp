@@ -16,7 +16,7 @@ StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, Vec2f 
     m_scaleRect.y = pos.y;
 }
 
-void StaticTileGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *renderer)
+void StaticTileGraphicsComponent::render(GameObject &, SDL_Renderer *renderer)
 {
     if (m_spriteSheet == nullptr)
     {

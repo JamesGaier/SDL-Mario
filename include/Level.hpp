@@ -23,9 +23,9 @@ class Level
 
     World m_level;
 
-    std::unique_ptr<GameObject> makeGround(int x, int y, int idx);
+    std::unique_ptr<GameObject> makeGround(float x, float y, int idx);
 
-    std::unique_ptr<GameObject> makePlayer(int x, int y, int idx);
+    std::unique_ptr<GameObject> makePlayer(float x, float y, int idx);
 };
 
 } // namespace smb

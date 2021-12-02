@@ -11,6 +11,10 @@ GameObject::GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
     : renderBox{scaleRect}, ID{OBJECT_ID}, m_graphicsComponent{std::move(graphicsComponent)},
       m_physicsComponent{std::move(physicsComponent)}, m_inputComponent{std::move(inputComponent)}
 {
+    boundingBox.pos.x = renderBox.pos.x;
+    boundingBox.pos.y = renderBox.pos.y;
+    boundingBox.size.x = renderBox.size.x;
+    boundingBox.size.y = renderBox.size.y;
 }
 
 void GameObject::update(float dt)

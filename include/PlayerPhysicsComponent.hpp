@@ -20,7 +20,9 @@ class PlayerPhysicsComponent : public PhysicsComponent
     void update(GameObject &gameObject, float dt) override;
 
   private:
-    void move(GameObject &go, const unsigned long ID, const float dt);
+    void move(GameObject &go, const float dt);
+
+    GameObject *checkCollision(const GameObject &go);
 
     std::mutex m_updateMutex;
     World &m_world;

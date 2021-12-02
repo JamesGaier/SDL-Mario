@@ -1,3 +1,4 @@
+#pragma once
 #include "GraphicsComponent.hpp"
 #include "Math.hpp"
 #include "Util.hpp"

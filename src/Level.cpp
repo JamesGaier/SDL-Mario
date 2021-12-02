@@ -17,16 +17,15 @@ std::unique_ptr<GameObject> Level::makeGround(float x, float y, int idx)
                                      std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(),
                                      idx, math::Rect{math::Vec2f{x, y}, math::Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
 
-    ground->boundingBox = math::Rect{math::Vec2f{x, y}, math::Vec2f{x * BLOCK_SIZE, y * BLOCK_SIZE}};
-
     return ground;
 }
 
 std::unique_ptr<GameObject> Level::makePlayer(float x, float y, int idx)
 {
-    auto player = std::make_unique<GameObject>(
-        std::make_unique<PlayerGraphicsComponent>(), std::make_unique<PlayerPhysicsComponent>(m_level),
-        std::make_unique<PlayerInputComponent>(), idx, math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
+    auto player = std::make_unique<GameObject>(std::make_unique<PlayerGraphicsComponent>(),
+                                               std::make_unique<PlayerPhysicsComponent>(m_level),
+                                               std::make_unique<PlayerInputComponent>(), idx,
+                                               math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
 
     constexpr static auto START_OFFSET = 4;
     player->boundingBox.size.x -= START_OFFSET;

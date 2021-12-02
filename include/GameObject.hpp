@@ -1,8 +1,8 @@
 #pragma once
 #include "GraphicsComponent.hpp"
 #include "InputComponent.hpp"
-#include "PhysicsComponent.hpp"
 #include "Math.hpp"
+#include "PhysicsComponent.hpp"
 #include <SDL.h>
 #include <memory>
 #include <vector>

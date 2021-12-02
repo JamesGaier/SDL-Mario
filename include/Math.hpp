@@ -1,5 +1,8 @@
 #pragma once
 
+#include <ostream>
+#include <utility>
+
 namespace smb::math
 {
 
@@ -40,7 +43,15 @@ struct Rect
 {
     Vec2f pos;
     Vec2f size;
+
+    friend std::ostream &operator<<(const std::ostream &os, const Rect &rect);
 };
+
+inline std::ostream &operator<<(std::ostream &os, const Rect &rect)
+{
+    return os << "[Rect] position x:" << rect.pos.x << "  y: " << rect.pos.y << " size x: " << rect.size.x
+              << " y: " << rect.size.y;
+}
 
 constexpr Vec2f operator/(float lhs, const Vec2f &rhs)
 {

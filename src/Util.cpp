@@ -10,7 +10,6 @@
 namespace smb
 {
 
-
 std::string toAbsolute(const std::string &path, const std::string &parent)
 {
     namespace fs = std::filesystem;

@@ -33,7 +33,6 @@ enum class TileColor
     GREEN
 };
 
-
 std::string read_file(const std::string &path);
 
 std::string toAbsolute(const std::string &path, const std::string &parent = "../res");

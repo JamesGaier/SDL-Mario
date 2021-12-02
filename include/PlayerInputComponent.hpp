@@ -1,3 +1,5 @@
+#pragma once
+
 #include "InputComponent.hpp"
 #include <SDL.h>
 #include <memory>

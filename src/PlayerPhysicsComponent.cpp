@@ -13,7 +13,7 @@ PlayerPhysicsComponent::PlayerPhysicsComponent(std::vector<std::unique_ptr<GameO
 void PlayerPhysicsComponent::update(GameObject &gameObject, float dt)
 {
     std::lock_guard<std::mutex> lg{m_updateMutex};
-    move(gameObject, gameObject.ID, dt);
+    move(gameObject, dt);
 }
 
 bool intersects(const math::Rect &lhs, const math::Rect &rhs)
@@ -22,37 +22,64 @@ bool intersects(const math::Rect &lhs, const math::Rect &rhs)
            lhs.pos.y < rhs.pos.y + rhs.size.y && lhs.pos.y + lhs.size.y > rhs.pos.y;
 }
 
-void PlayerPhysicsComponent::move(GameObject &go, const unsigned long ID, const float dt)
+GameObject *PlayerPhysicsComponent::checkCollision(const GameObject &go)
 {
-    const auto checkCollision = [&](auto &vel, auto &pos, const auto size, const auto xAxis) {
-        for (const auto &obj : m_world)
+    for (const auto &obj : m_world)
+    {
+        if (go.ID != obj->ID && intersects(go.boundingBox, obj->boundingBox))
         {
-            auto &objPos = xAxis ? obj->renderBox.pos.x : obj->renderBox.pos.y;
-
-            if (ID != obj->ID && intersects(go.renderBox, obj->renderBox))
-            {
-                if (vel > 0)
-                {
-                    pos = objPos - size;
-                    vel = 0;
-                }
-                else if (vel < 0)
-                {
-                    auto objSize = (xAxis) ? obj->renderBox.size.x : obj->renderBox.size.y;
-                    go.renderBox.pos.x = objPos + objSize;
-                    go.vel.x = 0;
-                }
-            }
+            return obj.get();
         }
-    };
+    }
+    
+    return nullptr;
+}
 
+void PlayerPhysicsComponent::move(GameObject &go, const float dt)
+{
     go.vel.x += go.accel.x * dt;
-    go.renderBox.pos.x += go.vel.x * dt + 0.5 * go.accel.x * dt * dt;
-    checkCollision(go.vel.x, go.renderBox.pos.x, go.renderBox.size.x, true);
+    go.boundingBox.pos.x += go.vel.x * dt + 0.5 * go.accel.x * dt * dt;
+    auto collisionObjectX = checkCollision(go);
+    if(collisionObjectX != nullptr)
+    {
+        auto objectPositionX = collisionObjectX->boundingBox.pos.x; 
+
+        auto playerSizeX = go.boundingBox.size.x;
+        if(go.vel.x > 0)
+        {
+            go.boundingBox.pos.x = objectPositionX - playerSizeX;
+            go.vel.x = 0;
+        }
+        else if(go.vel.x < 0)
+        {
+            auto objectSizeX = collisionObjectX->boundingBox.size.x;
+            go.boundingBox.pos.x = objectPositionX + objectSizeX;
+            go.vel.x = 0;
+        }
+    }
 
     go.vel.y += go.accel.y * dt;
-    go.renderBox.pos.y += go.vel.y * dt + 0.5 * go.accel.y * dt * dt;
-    checkCollision(go.vel.y, go.renderBox.pos.y, go.renderBox.size.y, false);
+    go.boundingBox.pos.y += go.vel.y * dt + 0.5 * go.accel.y * dt * dt;
+    auto collisionObjectY = checkCollision(go);
+    if(collisionObjectY != nullptr)
+    {
+        auto objectPositionY = collisionObjectY->boundingBox.pos.y; 
+        auto playerSizeY = go.boundingBox.size.y;
+        if(go.vel.y > 0)
+        {
+            go.boundingBox.pos.y = objectPositionY - playerSizeY;
+            go.vel.y = 0;
+        }
+        else if(go.vel.y < 0)
+        {
+            auto objectSizeY = collisionObjectY->boundingBox.size.y;
+            go.boundingBox.pos.y = objectPositionY + objectSizeY;
+            go.vel.y = 0;
+        }
+    }
+
+    go.renderBox.pos.x = go.boundingBox.pos.x;
+    go.renderBox.pos.y = go.boundingBox.pos.y;
 }
 
 } // namespace smb

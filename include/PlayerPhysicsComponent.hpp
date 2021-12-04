@@ -18,7 +18,11 @@ class PlayerPhysicsComponent : public PhysicsComponent
     PlayerPhysicsComponent(World &world);
 
     void update(GameObject &gameObject, float dt) override;
-
+    
+    bool onGround() const;
+    
+    void setOnGround(bool onGround);
+    
   private:
     void move(GameObject &go, const float dt);
 
@@ -27,7 +31,6 @@ class PlayerPhysicsComponent : public PhysicsComponent
     std::mutex m_updateMutex;
     World &m_world;
     bool m_onGround{false};
-    bool m_jumping{false};
 };
 
 } // namespace smb

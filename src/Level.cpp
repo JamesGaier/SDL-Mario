@@ -10,22 +10,23 @@
 namespace smb
 {
 
-std::unique_ptr<GameObject> Level::makeGround(float x, float y, int idx)
+std::unique_ptr<GameObject> Level::makeGround(float x, float y)
 {
-    auto ground =
-        std::make_unique<GameObject>(std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}),
-                                     std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(),
-                                     idx, math::Rect{math::Vec2f{x, y}, math::Vec2f{BLOCK_SIZE, BLOCK_SIZE}});
+    auto scaleRect = math::Rect{math::Vec2f{x, y}, math::Vec2f{BLOCK_SIZE, BLOCK_SIZE}};
+    auto ground = std::make_unique<GameObject>(
+        std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}),
+        std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(), scaleRect);
 
     return ground;
 }
 
-std::unique_ptr<GameObject> Level::makePlayer(float x, float y, int idx)
+std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
 {
+    auto scaleRect = math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}};
+    auto playerPhysicsComponent = std::make_unique<PlayerPhysicsComponent>(m_level);
     auto player = std::make_unique<GameObject>(std::make_unique<PlayerGraphicsComponent>(),
-                                               std::make_unique<PlayerPhysicsComponent>(m_level),
-                                               std::make_unique<PlayerInputComponent>(), idx,
-                                               math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}});
+                                               std::move(playerPhysicsComponent),
+                                               std::make_unique<PlayerInputComponent>(playerPhysicsComponent.get()), scaleRect);
 
     constexpr static auto START_OFFSET = 4;
     player->boundingBox.size.x -= START_OFFSET;
@@ -54,13 +55,13 @@ Level::Level(const std::string &path)
             case TileType::AIR:
                 break;
             case TileType::GROUND: {
-                auto ground = makeGround(x * BLOCK_SIZE, y * BLOCK_SIZE, idx);
+                auto ground = makeGround(x * BLOCK_SIZE, y * BLOCK_SIZE);
                 m_level.push_back(std::move(ground));
                 ++idx;
                 break;
             }
             case TileType::SPAWN: {
-                auto player = makePlayer(x * BLOCK_SIZE, y * BLOCK_SIZE, idx);
+                auto player = makePlayer(x * BLOCK_SIZE, y * BLOCK_SIZE);
                 m_level.push_back(std::move(player));
                 ++idx;
                 break;

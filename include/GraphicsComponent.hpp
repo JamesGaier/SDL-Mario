@@ -6,7 +6,7 @@ namespace smb
 {
 
 class GameObject;
-class GraphicsComponent
+class GraphicsComponent 
 {
   public:
     virtual ~GraphicsComponent() = default;

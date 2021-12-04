@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <random>
 #include <utility>
 
 namespace smb::math
@@ -101,6 +102,14 @@ constexpr Vec2f operator*(const Vec2f &lhs, float rhs)
 constexpr Vec2f operator+(const Vec2f &lhs, const float &rhs)
 {
     return {lhs.x + rhs, lhs.y + rhs};
+}
+
+template <typename IntegralType> IntegralType generateRandomInt(const IntegralType lower, const IntegralType upper)
+{
+    std::random_device device;
+    std::mt19937 mt(device());
+    std::uniform_int_distribution<IntegralType> distribution(lower, upper);
+    return distribution(mt);
 }
 
 } // namespace smb::math

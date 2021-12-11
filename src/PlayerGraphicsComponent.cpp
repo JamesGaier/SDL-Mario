@@ -19,10 +19,10 @@ PlayerGraphicsComponent::PlayerGraphicsComponent(SDL_Renderer *renderer)
     m_animator.addAnimation("idle_right", 14, 14);
     m_animator.addAnimation("idle_left", 13, 13);
 
-    m_animator.setAnimation("walk_right");
+    m_animator.setAnimation("idle_right");
 }
 
-void PlayerGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *)
+void PlayerGraphicsComponent::render(GameObject &gameObject)
 {
     m_animator.renderAnimation(gameObject.renderBox);
 }

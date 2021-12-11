@@ -28,7 +28,7 @@ class GameObject
                std::unique_ptr<InputComponent> inputComponent, math::Rect scaleRect);
 
     void update(float dt);
-    void render(SDL_Renderer *renderer);
+    void render();
 
   private:
     std::unique_ptr<GraphicsComponent> m_graphicsComponent;

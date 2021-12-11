@@ -27,33 +27,29 @@ bool PlayerInputComponent::keyPressed(const unsigned char *keys)
     return false;
 }
 
-void PlayerInputComponent::update(GameObject &gameObject)
+void PlayerInputComponent::walk(const unsigned char *keys, GameObject &gameObject)
 {
-    const auto *currentKeyStates = SDL_GetKeyboardState(nullptr);
     constexpr auto horizontalSpeed = 300;
-    constexpr auto jumpVel = 400;
-    constexpr auto jumpAccel = 1000;
-    constexpr auto defaultAccel = 800;
-
-    gameObject.accel.y = defaultAccel;
-    gameObject.accel = math::Vec2f{0, gameObject.accel.y};
-    gameObject.vel = math::Vec2f{0, gameObject.vel.y};
-
-    if (currentKeyStates[SDL_SCANCODE_D])
+    if (keys[SDL_SCANCODE_D])
     {
         gameObject.vel.x = horizontalSpeed;
         m_animator.setAnimation("walk_right");
         m_previousDirection = SDL_SCANCODE_D;
     }
 
-    if (currentKeyStates[SDL_SCANCODE_A])
+    if (keys[SDL_SCANCODE_A])
     {
         gameObject.vel.x = -horizontalSpeed;
         m_animator.setAnimation("walk_left");
         m_previousDirection = SDL_SCANCODE_A;
     }
+}
 
-    if (currentKeyStates[SDL_SCANCODE_X] && m_playerPhysics->onGround())
+void PlayerInputComponent::jump(const unsigned char *keys, GameObject &gameObject)
+{
+    constexpr auto jumpVel = 400;
+    constexpr auto jumpAccel = 1000;
+    if (keys[SDL_SCANCODE_X] && m_playerPhysics->onGround())
     {
         gameObject.accel.y = -jumpAccel;
         gameObject.vel.y = -jumpVel;
@@ -79,8 +75,11 @@ void PlayerInputComponent::update(GameObject &gameObject)
            m_animator.setAnimation("jump_left"); 
         }
     }
-    
-    if(!keyPressed(currentKeyStates) && m_playerPhysics->onGround())
+}
+
+void PlayerInputComponent::idle(const unsigned char *keys)
+{
+    if(!keyPressed(keys) && m_playerPhysics->onGround())
     {
         if (m_previousDirection == SDL_SCANCODE_A)
         {
@@ -91,6 +90,20 @@ void PlayerInputComponent::update(GameObject &gameObject)
             m_animator.setAnimation("idle_right");
         }
     }
+}
+
+void PlayerInputComponent::update(GameObject &gameObject)
+{
+    const auto *currentKeyStates = SDL_GetKeyboardState(nullptr);
+    constexpr auto defaultAccel = 800;
+
+    gameObject.accel.y = defaultAccel;
+    gameObject.accel = math::Vec2f{0, gameObject.accel.y};
+    gameObject.vel = math::Vec2f{0, gameObject.vel.y};
+
+    walk(currentKeyStates, gameObject);
+    jump(currentKeyStates, gameObject);
+    idle(currentKeyStates);
 }
 
 } // namespace smb

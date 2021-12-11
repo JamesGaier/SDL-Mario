@@ -4,7 +4,8 @@
 namespace smb
 {
 
-StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::Vec2f pos)
+StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::Vec2f pos, SDL_Renderer *renderer)
+    : m_renderer{renderer}
 {
     auto tilesStr = read_file("textCoordsStatic.txt");
     auto tiles = parse_spritesheet(tilesStr);
@@ -15,14 +16,14 @@ StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::
     m_scaleRect.y = pos.y;
 }
 
-void StaticTileGraphicsComponent::render(GameObject &, SDL_Renderer *renderer)
+void StaticTileGraphicsComponent::render(GameObject &)
 {
     if (m_spriteSheet == nullptr)
     {
-        m_spriteSheet = loadImage(toAbsolute("tiles.png"), renderer);
+        m_spriteSheet = loadImage(toAbsolute("tiles.png"), m_renderer);
     }
 
-    SDL_RenderCopy(renderer, m_spriteSheet, &m_tile, &m_scaleRect);
+    SDL_RenderCopy(m_renderer, m_spriteSheet, &m_tile, &m_scaleRect);
 }
 
 } // namespace smb

@@ -10,7 +10,7 @@ namespace smb
 class NullGraphicsComponent final : public GraphicsComponent
 {
     ~NullGraphicsComponent() override = default;
-    void render(GameObject &, SDL_Renderer *) override
+    void render(GameObject &) override
     {
     }
 };

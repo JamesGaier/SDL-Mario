@@ -10,7 +10,7 @@ class GraphicsComponent
 {
   public:
     virtual ~GraphicsComponent() = default;
-    virtual void render(GameObject &gameObject, SDL_Renderer *renderer) = 0;
+    virtual void render(GameObject &gameObject) = 0;
 };
 
 } // namespace smb

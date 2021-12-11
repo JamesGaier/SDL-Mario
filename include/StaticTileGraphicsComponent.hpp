@@ -10,16 +10,17 @@ namespace smb
 class StaticTileGraphicsComponent : public GraphicsComponent
 {
   public:
-    StaticTileGraphicsComponent(TileColor tileColor, math::Vec2f pos);
+    StaticTileGraphicsComponent(TileColor tileColor, math::Vec2f pos, SDL_Renderer *renderer);
 
     ~StaticTileGraphicsComponent() override = default;
 
-    void render(GameObject &gameObject, SDL_Renderer *renderer);
+    void render(GameObject &gameObject) override;
 
   private:
     SDL_Rect m_tile;
     SDL_Rect m_scaleRect;
     SDL_Texture *m_spriteSheet{nullptr};
+    SDL_Renderer *m_renderer;
     const unsigned m_size{32};
 };
 } // namespace smb

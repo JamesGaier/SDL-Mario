@@ -14,7 +14,7 @@ std::unique_ptr<GameObject> Level::makeGround(float x, float y)
 {
     auto scaleRect = math::Rect{math::Vec2f{x, y}, math::Vec2f{BLOCK_SIZE, BLOCK_SIZE}};
     auto ground = std::make_unique<GameObject>(
-        std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}),
+        std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}, m_renderer),
         std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(), scaleRect);
 
     return ground;
@@ -29,13 +29,13 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
         std::move(playerGraphicsComponent), std::move(playerPhysicsComponent),
         std::make_unique<PlayerInputComponent>(playerPhysicsComponent.get(), playerGraphicsComponent.get(), m_renderer), scaleRect);
 
-    constexpr static auto START_OFFSET = 4;
-    player->boundingBox.size.x -= START_OFFSET;
+    constexpr static auto startOffset = 4;
+    player->boundingBox.size.x -= startOffset;
 
-    constexpr static auto GRAVITY = 800.0f;
-    constexpr static auto INITIAL_VERTICAL_VELOCITY = 300.0f;
-    player->accel = math::Vec2f{0, GRAVITY};
-    player->vel = math::Vec2f{0, INITIAL_VERTICAL_VELOCITY};
+    constexpr static auto gravity = 800.0f;
+    constexpr static auto initialVerticalVelocity = 300.0f;
+    player->accel = math::Vec2f{0, gravity};
+    player->vel = math::Vec2f{0, initialVerticalVelocity};
 
     return player;
 }
@@ -80,7 +80,7 @@ void Level::render()
 {
     for (const auto &el : m_level)
     {
-        el->render(m_renderer);
+        el->render();
     }
 }
 

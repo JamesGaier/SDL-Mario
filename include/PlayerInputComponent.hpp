@@ -16,6 +16,9 @@ class PlayerInputComponent : public InputComponent
     PlayerInputComponent(PlayerPhysicsComponent *playerPhysics, PlayerGraphicsComponent *graphicsComponent, SDL_Renderer *renderer);
     void update(GameObject &gameObject);
     bool keyPressed(const unsigned char *keys);
+    void walk(const unsigned char *keys, GameObject &gameObject);
+    void jump(const unsigned char *keys, GameObject &gameObject);
+    void idle(const unsigned char *keys);
 
   public:
     PlayerPhysicsComponent *m_playerPhysics;

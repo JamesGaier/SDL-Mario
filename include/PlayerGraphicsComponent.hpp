@@ -18,7 +18,7 @@ class PlayerGraphicsComponent : public GraphicsComponent
 
     ~PlayerGraphicsComponent() = default;
 
-    void render(GameObject &gameObject, SDL_Renderer *renderer) override;
+    void render(GameObject &gameObject) override;
 
     Animator &getAnimator();
 

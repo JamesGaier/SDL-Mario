@@ -29,9 +29,9 @@ void GameObject::update(float dt)
     m_physicsComponent->update(*this, dt);
 }
 
-void GameObject::render(SDL_Renderer *renderer)
+void GameObject::render()
 {
     std::lock_guard<std::mutex> lg{m_mutex};
-    m_graphicsComponent->render(*this, renderer);
+    m_graphicsComponent->render(*this);
 }
 } // namespace smb

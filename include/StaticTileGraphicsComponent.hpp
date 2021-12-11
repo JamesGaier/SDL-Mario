@@ -12,7 +12,7 @@ class StaticTileGraphicsComponent : public GraphicsComponent
   public:
     StaticTileGraphicsComponent(TileColor tileColor, math::Vec2f pos, SDL_Renderer *renderer);
 
-    ~StaticTileGraphicsComponent() override = default;
+    ~StaticTileGraphicsComponent() override;
 
     void render(GameObject &gameObject) override;
 

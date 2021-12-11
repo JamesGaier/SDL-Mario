@@ -13,7 +13,7 @@ class Animator
 {
   public:
 
-    ~Animator() = default;
+    ~Animator();
 
     Animator(const Animator &animator);
 

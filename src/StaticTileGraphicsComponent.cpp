@@ -4,6 +4,11 @@
 namespace smb
 {
 
+ StaticTileGraphicsComponent::~StaticTileGraphicsComponent()
+ {
+    SDL_DestroyTexture(m_spriteSheet);
+ }
+
 StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::Vec2f pos, SDL_Renderer *renderer)
     : m_renderer{renderer}
 {
@@ -14,15 +19,11 @@ StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::
     m_scaleRect.h = m_size;
     m_scaleRect.x = pos.x;
     m_scaleRect.y = pos.y;
+    m_spriteSheet = loadImage(toAbsolute("tiles.png"), m_renderer);
 }
 
 void StaticTileGraphicsComponent::render(GameObject &)
 {
-    if (m_spriteSheet == nullptr)
-    {
-        m_spriteSheet = loadImage(toAbsolute("tiles.png"), m_renderer);
-    }
-
     SDL_RenderCopy(m_renderer, m_spriteSheet, &m_tile, &m_scaleRect);
 }
 

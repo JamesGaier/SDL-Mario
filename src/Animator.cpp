@@ -5,6 +5,11 @@
 namespace smb
 {
 
+Animator::~Animator()
+{
+    SDL_DestroyTexture(m_spritesheet);
+}
+
 Animator::Animator(const Animator &animator) 
   :  m_renderer{animator.getRenderer()}, m_spritesheet{animator.getSpriteSheet()}, m_frames{animator.getFrames()}
 {

@@ -1,24 +1,35 @@
 #include "PlayerGraphicsComponent.hpp"
 #include "Util.hpp"
+#include <cassert>
+#include <chrono>
+#include <iostream>
+#include <thread>
 
 namespace smb
 {
 
-PlayerGraphicsComponent::PlayerGraphicsComponent()
+PlayerGraphicsComponent::PlayerGraphicsComponent(SDL_Renderer *renderer)
+    :  m_renderer{renderer}, 
+      m_animator{Animator(m_renderer, "characters.gif", "textCoords.txt")}
 {
-    const auto coords_f = read_file("textCoords.txt");
-    auto coords = parse_spritesheet(coords_f);
-    m_frames = std::move(coords);
+    m_animator.addAnimation("walk_right", 16, 18);
+    m_animator.addAnimation("walk_left", 9, 11);
+    m_animator.addAnimation("jump_right", 7, 7);
+    m_animator.addAnimation("jump_left", 20, 20);
+    m_animator.addAnimation("idle_right", 14, 14);
+    m_animator.addAnimation("idle_left", 13, 13);
+
+    m_animator.setAnimation("walk_right");
 }
 
-void PlayerGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *renderer)
+void PlayerGraphicsComponent::render(GameObject &gameObject, SDL_Renderer *)
 {
-    if (m_spriteSheet == nullptr)
-    {
-        m_spriteSheet = loadImage(toAbsolute("characters.gif"), renderer);
-    }
+    m_animator.renderAnimation(gameObject.renderBox);
+}
 
-    m_renderer.render(renderer, m_spriteSheet, m_frames[tempFrame], gameObject.renderBox);
+Animator &PlayerGraphicsComponent::getAnimator()
+{
+    return m_animator;
 }
 
 } // namespace smb

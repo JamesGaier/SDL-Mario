@@ -83,8 +83,7 @@ void PlayerPhysicsComponent::move(GameObject &go, const float dt)
         m_onGround = false;
     }
 
-    go.renderBox.pos.x = go.boundingBox.pos.x;
-    go.renderBox.pos.y = go.boundingBox.pos.y;
+    go.renderBox.pos = math::Vec2f{go.boundingBox.pos.x, go.boundingBox.pos.y};
 }
 
 bool PlayerPhysicsComponent::onGround() const

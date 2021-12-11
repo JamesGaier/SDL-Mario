@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Animator.hpp"
 #include "GameObject.hpp"
 #include "GraphicsComponent.hpp"
 #include "ImageRenderer.hpp"
@@ -13,17 +14,23 @@ namespace smb
 class PlayerGraphicsComponent : public GraphicsComponent
 {
   public:
-    PlayerGraphicsComponent();
+    PlayerGraphicsComponent(SDL_Renderer *renderer);
 
     ~PlayerGraphicsComponent() = default;
 
     void render(GameObject &gameObject, SDL_Renderer *renderer) override;
 
+    Animator &getAnimator();
+
   private:
+    void loadPlayerAnimations();
+
     std::vector<SDL_Rect> m_frames;
-    ImageRenderer m_renderer;
+    ImageRenderer m_imageRenderer;
+    SDL_Renderer *m_renderer;
+    Animator m_animator;
     SDL_Texture *m_spriteSheet{nullptr};
-    const unsigned tempFrame = 14;
+    unsigned tempFrame = 160;
     const unsigned m_width{32};
     const unsigned m_height{64};
     std::mutex m_renderMutex;

@@ -4,7 +4,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/Game.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/Util.cpp
-    ${CMAKE_SOURCE_DIR}/src/Input.cpp
+    ${CMAKE_SOURCE_DIR}/src/Animator.cpp
     ${CMAKE_SOURCE_DIR}/src/Level.cpp
     ${CMAKE_SOURCE_DIR}/src/GameObject.cpp
     ${CMAKE_SOURCE_DIR}/src/PlayerGraphicsComponent.cpp

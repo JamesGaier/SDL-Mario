@@ -24,9 +24,10 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
 {
     auto scaleRect = math::Rect{math::Vec2f{x, y}, math::Vec2f{MARIO_WIDTH, MARIO_HEIGHT}};
     auto playerPhysicsComponent = std::make_unique<PlayerPhysicsComponent>(m_level);
-    auto player = std::make_unique<GameObject>(std::make_unique<PlayerGraphicsComponent>(),
-                                               std::move(playerPhysicsComponent),
-                                               std::make_unique<PlayerInputComponent>(playerPhysicsComponent.get()), scaleRect);
+    auto playerGraphicsComponent = std::make_unique<PlayerGraphicsComponent>(m_renderer);
+    auto player = std::make_unique<GameObject>(
+        std::move(playerGraphicsComponent), std::move(playerPhysicsComponent),
+        std::make_unique<PlayerInputComponent>(playerPhysicsComponent.get(), playerGraphicsComponent.get(), m_renderer), scaleRect);
 
     constexpr static auto START_OFFSET = 4;
     player->boundingBox.size.x -= START_OFFSET;
@@ -39,7 +40,7 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
     return player;
 }
 
-Level::Level(const std::string &path)
+Level::Level(const std::string &path, SDL_Renderer *renderer) : m_renderer{renderer}
 {
     auto levelStr = read_file(path);
     auto levelData = parse_level(levelStr);
@@ -75,11 +76,11 @@ Level::Level(const std::string &path)
     }
 }
 
-void Level::render(SDL_Renderer *renderer)
+void Level::render()
 {
     for (const auto &el : m_level)
     {
-        el->render(renderer);
+        el->render(m_renderer);
     }
 }
 

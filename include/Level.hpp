@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.hpp"
+#include "SDL_render.h"
 #include "Util.hpp"
 #include <memory>
 #include <vector>
@@ -12,8 +13,8 @@ class Level
 {
   public:
     using World = std::vector<std::unique_ptr<GameObject>>;
-    Level(const std::string &path);
-    void render(SDL_Renderer *renderer);
+    Level(const std::string &path, SDL_Renderer *renderer);
+    void render();
     void update(float dt);
 
   private:
@@ -22,6 +23,7 @@ class Level
     constexpr static auto MARIO_HEIGHT = 64;
 
     World m_level;
+    SDL_Renderer *m_renderer;
 
     std::unique_ptr<GameObject> makeGround(float x, float y);
 

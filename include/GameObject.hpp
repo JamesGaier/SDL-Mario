@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <memory>
 #include <vector>
+#include <mutex>
 
 namespace smb
 {
@@ -33,6 +34,7 @@ class GameObject
     std::unique_ptr<GraphicsComponent> m_graphicsComponent;
     std::unique_ptr<PhysicsComponent> m_physicsComponent;
     std::unique_ptr<InputComponent> m_inputComponent;
+    std::mutex m_mutex;
 };
 
 } // namespace smb

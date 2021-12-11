@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <atomic>
 #include <memory>
+#include <mutex>
+
 
 namespace smb
 {
@@ -33,6 +35,7 @@ class Game
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Level> m_level;
     SDL_Event m_event;
+    std::mutex m_mutex;
 
     void render();
     void windowInit();

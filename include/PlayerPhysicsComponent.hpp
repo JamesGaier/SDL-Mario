@@ -18,11 +18,11 @@ class PlayerPhysicsComponent : public PhysicsComponent
     PlayerPhysicsComponent(World &world);
 
     void update(GameObject &gameObject, float dt) override;
-    
+
     bool onGround() const;
-    
+
     void setOnGround(bool onGround);
-    
+
   private:
     void move(GameObject &go, const float dt);
 

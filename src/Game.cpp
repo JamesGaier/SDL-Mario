@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Level.hpp"
+#include "SDL_render.h"
 #include <SDL_image.h>
 #include <cassert>
 #include <chrono>
@@ -16,11 +17,10 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     assert(!instantiated);
     instantiated = true;
 
-    m_level.reset(new Level("w1-1.txt"));
 
-    std::thread renderThread{&Game::render, this};
+    windowInit();
     std::thread physicsThread{&Game::update, this};
-    renderThread.join();
+    render();
     physicsThread.join();
 }
 
@@ -37,7 +37,6 @@ Game::~Game()
 
 void Game::render()
 {
-    windowInit();
     while (m_playing)
     {
         while (SDL_PollEvent(&m_event))
@@ -49,7 +48,7 @@ void Game::render()
         }
         SDL_RenderClear(m_renderer);
         SDL_SetRenderDrawColor(m_renderer, 0x93, 0xBB, 0xEC, 0xFF); // Please change magic numbers here
-        m_level->render(m_renderer);
+        m_level->render();
         SDL_RenderPresent(m_renderer);
     }
 }
@@ -64,12 +63,15 @@ void Game::windowInit()
     m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
                                 SDL_WINDOW_SHOWN);
 
+
     if (m_window == nullptr)
     {
         std::cout << "Window could not be created" << std::endl;
     }
 
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    m_level.reset(new Level("w1-1.txt", m_renderer));
+
     if (m_renderer == nullptr)
     {
         std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;

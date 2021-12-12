@@ -10,8 +10,6 @@
 namespace smb
 {
 
-bool Game::instantiated = false;
-
 Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{title}, m_width{width}, m_height{height}
 {
     assert(!instantiated);

@@ -1,25 +1,20 @@
 #include "StaticTileGraphicsComponent.hpp"
+#include "ResourceFactory.hpp"
 #include <iostream>
 
 namespace smb
 {
 
- StaticTileGraphicsComponent::~StaticTileGraphicsComponent()
- {
-    SDL_DestroyTexture(m_spriteSheet);
- }
-
 StaticTileGraphicsComponent::StaticTileGraphicsComponent(TileColor color, math::Vec2f pos, SDL_Renderer *renderer)
     : m_renderer{renderer}
 {
-    auto tilesStr = read_file("textCoordsStatic.txt");
-    auto tiles = parse_spritesheet(tilesStr);
-    m_tile = tiles[static_cast<unsigned>(color)];
+    auto resource = ResourceFactory::getResource("static_assets");
+    m_tile = resource->coords[static_cast<unsigned>(color)];
     m_scaleRect.w = m_size;
     m_scaleRect.h = m_size;
     m_scaleRect.x = pos.x;
     m_scaleRect.y = pos.y;
-    m_spriteSheet = loadImage(toAbsolute("tiles.png"), m_renderer);
+    m_spriteSheet = resource->texture;
 }
 
 void StaticTileGraphicsComponent::render(GameObject &)

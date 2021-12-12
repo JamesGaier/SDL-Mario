@@ -1,30 +1,18 @@
 #include "Animator.hpp"
 #include "Util.hpp"
+#include "ResourceFactory.hpp"
 #include <iostream>
 
 namespace smb
 {
 
-Animator::~Animator()
-{
-    SDL_DestroyTexture(m_spritesheet);
-}
-
-Animator::Animator(SDL_Renderer *renderer, const std::string &spriteFileName, const std::string &coordsFileName)
+Animator::Animator(SDL_Renderer *renderer)
     : m_renderer{renderer}
 {
-    try
-    {
-        const auto coordsFile = read_file(coordsFileName);
-        auto coords = parse_spritesheet(coordsFile);
-        m_frames = std::move(coords);
-        m_spritesheet = loadImage(toAbsolute(spriteFileName), m_renderer);
-    }
-    catch (std::exception &ex)
-    {
-        std::cout << "An exception occured" << ex.what() << std::endl;
-        exit(0);
-    }
+    auto resource = ResourceFactory::getResource("player");
+    auto coords = resource->coords;
+    m_frames = std::move(coords);
+    m_spritesheet = resource->texture;
 }
 
 void Animator::addAnimation(const std::string &name, unsigned begin, unsigned end)

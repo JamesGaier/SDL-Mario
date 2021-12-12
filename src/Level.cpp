@@ -5,6 +5,7 @@
 #include "PlayerInputComponent.hpp"
 #include "PlayerPhysicsComponent.hpp"
 #include "StaticTileGraphicsComponent.hpp"
+#include "ResourceFactory.hpp"
 #include <iostream>
 
 namespace smb
@@ -48,6 +49,10 @@ Level::Level(const std::string &path, SDL_Renderer *renderer) : m_renderer{rende
 {
     auto levelStr = read_file(path);
     auto levelData = parse_level(levelStr);
+
+    ResourceFactory::loadResource("textCoordsStatic.txt", "tiles.png", "static_assets", m_renderer);
+    ResourceFactory::loadResource("textCoords.txt", "characters.gif", "player", m_renderer);
+
 
     auto idx = 0;
     for (float y = 0u; y < levelData.size(); ++y)

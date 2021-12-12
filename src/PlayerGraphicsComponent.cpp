@@ -10,7 +10,7 @@ namespace smb
 
 PlayerGraphicsComponent::PlayerGraphicsComponent(SDL_Renderer *renderer)
     :  m_renderer{renderer}, 
-      m_animator{Animator(m_renderer, "characters.gif", "textCoords.txt")}
+      m_animator{Animator(m_renderer)}
 {
     m_animator.addAnimation("walk_right", 16, 18);
     m_animator.addAnimation("walk_left", 9, 11);

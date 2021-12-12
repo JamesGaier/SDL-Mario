@@ -13,32 +13,13 @@ class Animator
 {
   public:
 
-    ~Animator();
-
-
-    Animator(SDL_Renderer *renderer, const std::string &spriteFileName, const std::string &coordsFileName);
+    Animator(SDL_Renderer *renderer);
 
     void addAnimation(const std::string &name, unsigned begin, unsigned end);
 
     void setAnimation(const std::string &name);
 
     void renderAnimation(math::Rect &scaleRect);
-
-    SDL_Texture *getSpriteSheet() const
-    {
-        return m_spritesheet;
-    }
-
-    std::vector<SDL_Rect> getFrames() const
-    {
-        return m_frames;
-
-    }
-
-    SDL_Renderer *getRenderer() const
-    {
-        return m_renderer;
-    }
 
   private:
     ImageRenderer m_imageRenderer;

@@ -2236,28 +2236,13 @@
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Game.cpp.o -c /home/james/Documents/SDL-Mario/src/Game.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/Game.cpp"
-},
-{
-  "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/main.cpp.o -c /home/james/Documents/SDL-Mario/src/main.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/main.cpp"
-},
-{
-  "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Util.cpp.o -c /home/james/Documents/SDL-Mario/src/Util.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/Util.cpp"
-},
-{
-  "directory": "/home/james/Documents/SDL-Mario/build/src",
   "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Animator.cpp.o -c /home/james/Documents/SDL-Mario/src/Animator.cpp",
   "file": "/home/james/Documents/SDL-Mario/src/Animator.cpp"
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Level.cpp.o -c /home/james/Documents/SDL-Mario/src/Level.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/Level.cpp"
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Game.cpp.o -c /home/james/Documents/SDL-Mario/src/Game.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/Game.cpp"
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
@@ -2266,13 +2251,13 @@
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/PlayerGraphicsComponent.cpp.o -c /home/james/Documents/SDL-Mario/src/PlayerGraphicsComponent.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/PlayerGraphicsComponent.cpp"
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Level.cpp.o -c /home/james/Documents/SDL-Mario/src/Level.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/Level.cpp"
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
-  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/PlayerPhysicsComponent.cpp.o -c /home/james/Documents/SDL-Mario/src/PlayerPhysicsComponent.cpp",
-  "file": "/home/james/Documents/SDL-Mario/src/PlayerPhysicsComponent.cpp"
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/PlayerGraphicsComponent.cpp.o -c /home/james/Documents/SDL-Mario/src/PlayerGraphicsComponent.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/PlayerGraphicsComponent.cpp"
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
@@ -2281,7 +2266,27 @@
 },
 {
   "directory": "/home/james/Documents/SDL-Mario/build/src",
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/PlayerPhysicsComponent.cpp.o -c /home/james/Documents/SDL-Mario/src/PlayerPhysicsComponent.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/PlayerPhysicsComponent.cpp"
+},
+{
+  "directory": "/home/james/Documents/SDL-Mario/build/src",
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/ResourceFactory.cpp.o -c /home/james/Documents/SDL-Mario/src/ResourceFactory.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/ResourceFactory.cpp"
+},
+{
+  "directory": "/home/james/Documents/SDL-Mario/build/src",
   "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/StaticTileGraphicsComponent.cpp.o -c /home/james/Documents/SDL-Mario/src/StaticTileGraphicsComponent.cpp",
   "file": "/home/james/Documents/SDL-Mario/src/StaticTileGraphicsComponent.cpp"
+},
+{
+  "directory": "/home/james/Documents/SDL-Mario/build/src",
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/Util.cpp.o -c /home/james/Documents/SDL-Mario/src/Util.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/Util.cpp"
+},
+{
+  "directory": "/home/james/Documents/SDL-Mario/build/src",
+  "command": "/usr/bin/c++  -I/home/james/Documents/SDL-Mario/include -I/home/james/Documents/SDL-Mario/external/SDL/include -I/home/james/Documents/SDL-Mario/external/SDL_image -Wall -Wextra -Wpedantic -Wnull-dereference -fsanitize=address,undefined -g -std=gnu++17 -o CMakeFiles/Mario.dir/main.cpp.o -c /home/james/Documents/SDL-Mario/src/main.cpp",
+  "file": "/home/james/Documents/SDL-Mario/src/main.cpp"
 }
 ]

@@ -12,14 +12,14 @@ class StaticTileGraphicsComponent : public GraphicsComponent
   public:
     StaticTileGraphicsComponent(TileColor tileColor, math::Vec2f pos, SDL_Renderer *renderer);
 
-    ~StaticTileGraphicsComponent() override;
+    ~StaticTileGraphicsComponent() override = default;
 
     void render(GameObject &gameObject) override;
 
   private:
     SDL_Rect m_tile;
     SDL_Rect m_scaleRect;
-    SDL_Texture *m_spriteSheet{nullptr};
+    SDL_Texture *m_spriteSheet;
     SDL_Renderer *m_renderer;
     const unsigned m_size{32};
 };

@@ -19,7 +19,7 @@ class Game
 
     Game &operator=(const Game &game) = delete;
 
-    Game &operator=(const Game &&Game) = delete;
+    Game &operator=(Game &&Game) = delete;
 
     Game(const Game &Game) = delete;
 
@@ -31,7 +31,7 @@ class Game
     unsigned m_height;
     SDL_Window *m_window{nullptr};
     SDL_Renderer *m_renderer{nullptr};
-    static bool instantiated;
+    inline static bool instantiated{false};
     std::atomic<bool> m_playing{true};
     std::unique_ptr<Level> m_level;
     SDL_Event m_event;

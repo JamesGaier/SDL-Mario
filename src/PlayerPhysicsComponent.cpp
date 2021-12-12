@@ -43,7 +43,6 @@ void PlayerPhysicsComponent::move(GameObject &go, const float dt)
     if (collisionObjectX != nullptr)
     {
         auto objectPositionX = collisionObjectX->boundingBox.pos.x;
-
         auto playerSizeX = go.boundingBox.size.x;
         if (go.vel.x > 0)
         {
@@ -82,6 +81,7 @@ void PlayerPhysicsComponent::move(GameObject &go, const float dt)
     {
         m_onGround = false;
     }
+
 
     go.renderBox.pos = math::Vec2f{go.boundingBox.pos.x, go.boundingBox.pos.y};
 }

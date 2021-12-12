@@ -17,6 +17,8 @@ std::unique_ptr<GameObject> Level::makeGround(float x, float y)
         std::make_unique<StaticTileGraphicsComponent>(TileColor::BROWN, math::Vec2f{x, y}, m_renderer),
         std::make_unique<NullPhysicsComponent>(), std::make_unique<NullInputComponent>(), scaleRect);
 
+    ground->ID = 2;
+
     return ground;
 }
 
@@ -36,6 +38,8 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
     constexpr static auto initialVerticalVelocity = 300.0f;
     player->accel = math::Vec2f{0, gravity};
     player->vel = math::Vec2f{0, initialVerticalVelocity};
+
+    player->ID = 1;
 
     return player;
 }

@@ -15,8 +15,6 @@ class Animator
 
     ~Animator();
 
-    Animator(const Animator &animator);
-
 
     Animator(SDL_Renderer *renderer, const std::string &spriteFileName, const std::string &coordsFileName);
 

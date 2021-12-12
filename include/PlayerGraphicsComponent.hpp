@@ -16,7 +16,7 @@ class PlayerGraphicsComponent : public GraphicsComponent
   public:
     PlayerGraphicsComponent(SDL_Renderer *renderer);
 
-    ~PlayerGraphicsComponent();
+    ~PlayerGraphicsComponent() = default;
 
     void render(GameObject &gameObject) override;
 
@@ -29,8 +29,6 @@ class PlayerGraphicsComponent : public GraphicsComponent
     ImageRenderer m_imageRenderer;
     SDL_Renderer *m_renderer;
     Animator m_animator;
-    SDL_Texture *m_spriteSheet{nullptr};
-    unsigned tempFrame = 160;
     const unsigned m_width{32};
     const unsigned m_height{64};
     std::mutex m_renderMutex;

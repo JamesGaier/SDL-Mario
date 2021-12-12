@@ -18,8 +18,6 @@ GameObject::GameObject(std::unique_ptr<GraphicsComponent> graphicsComponent,
     boundingBox.pos.y = renderBox.pos.y;
     boundingBox.size.x = renderBox.size.x;
     boundingBox.size.y = renderBox.size.y;
-
-    ID = math::generateRandomInt(1, 100);
 }
 
 void GameObject::update(float dt)

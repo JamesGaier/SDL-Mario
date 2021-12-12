@@ -17,7 +17,6 @@ Game::Game(const std::string &title, unsigned width, unsigned height) : m_title{
     assert(!instantiated);
     instantiated = true;
 
-
     windowInit();
     std::thread physicsThread{&Game::update, this};
     render();
@@ -62,7 +61,6 @@ void Game::windowInit()
 
     m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height,
                                 SDL_WINDOW_SHOWN);
-
 
     if (m_window == nullptr)
     {

@@ -8,11 +8,6 @@
 namespace smb
 {
 
-PlayerGraphicsComponent::~PlayerGraphicsComponent()
-{
-    SDL_DestroyTexture(m_spriteSheet);
-}
-
 PlayerGraphicsComponent::PlayerGraphicsComponent(SDL_Renderer *renderer)
     :  m_renderer{renderer}, 
       m_animator{Animator(m_renderer, "characters.gif", "textCoords.txt")}

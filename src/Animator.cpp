@@ -10,11 +10,6 @@ Animator::~Animator()
     SDL_DestroyTexture(m_spritesheet);
 }
 
-Animator::Animator(const Animator &animator) 
-  :  m_renderer{animator.getRenderer()}, m_spritesheet{animator.getSpriteSheet()}, m_frames{animator.getFrames()}
-{
-}
-
 Animator::Animator(SDL_Renderer *renderer, const std::string &spriteFileName, const std::string &coordsFileName)
     : m_renderer{renderer}
 {

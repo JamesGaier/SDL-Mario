@@ -10,10 +10,11 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
 
 jobs:
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.

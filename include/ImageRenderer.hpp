@@ -9,7 +9,7 @@ namespace smb
 class ImageRenderer
 {
   public:
-    void render(SDL_Renderer *renderer, SDL_Texture *tex, SDL_Rect &frame, math::Rect &rect)
+    void render(SDL_Renderer *renderer, SDL_Texture *tex,const SDL_Rect &frame,const math::Rect &rect)
     {
         {
             std::lock_guard<std::mutex> lg{m_updateMutex};

@@ -15,7 +15,7 @@ class PlayerPhysicsComponent : public PhysicsComponent
     using World = std::vector<std::unique_ptr<GameObject>>;
     ~PlayerPhysicsComponent() = default;
 
-    PlayerPhysicsComponent(World &world);
+    PlayerPhysicsComponent(World &world, Camera &camera);
 
     void update(GameObject &gameObject, float dt) override;
 
@@ -26,11 +26,13 @@ class PlayerPhysicsComponent : public PhysicsComponent
   private:
     void move(GameObject &go, const float dt);
 
-    GameObject *checkCollision(const GameObject &go);
+    GameObject *checkCollision(GameObject &go);
 
     std::mutex m_updateMutex;
     World &m_world;
     bool m_onGround{false};
+    Camera &m_camera;
+    constexpr static int m_levelWidth = 1600;
 };
 
 } // namespace smb

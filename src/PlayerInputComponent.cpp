@@ -15,11 +15,12 @@ PlayerInputComponent::PlayerInputComponent(PlayerPhysicsComponent *physicsCompon
 
 bool PlayerInputComponent::keyPressed(const unsigned char *keys)
 {
-    // currently I am hardcoding in the total number of keys on the keyboard.  I will make my own input class at a later time.
+    // currently I am hardcoding in the total number of keys on the keyboard.  I will make my own input class at a later
+    // time.
     constexpr auto totalKeys = 104;
-    for(size_t i = 0; i < totalKeys; ++i)
+    for (size_t i = 0; i < totalKeys; ++i)
     {
-        if(keys[i])
+        if (keys[i])
         {
             return true;
         }
@@ -32,14 +33,14 @@ void PlayerInputComponent::walk(const unsigned char *keys, GameObject &gameObjec
     constexpr auto horizontalSpeed = 300;
     if (keys[SDL_SCANCODE_D])
     {
-        gameObject.vel.x = horizontalSpeed;
+        gameObject.setVelocityX(horizontalSpeed);
         m_animator.setAnimation("walk_right");
         m_previousDirection = SDL_SCANCODE_D;
     }
 
     if (keys[SDL_SCANCODE_A])
     {
-        gameObject.vel.x = -horizontalSpeed;
+        gameObject.setVelocityX(-horizontalSpeed);
         m_animator.setAnimation("walk_left");
         m_previousDirection = SDL_SCANCODE_A;
     }
@@ -51,35 +52,35 @@ void PlayerInputComponent::jump(const unsigned char *keys, GameObject &gameObjec
     constexpr auto jumpAccel = 1000;
     if (keys[SDL_SCANCODE_X] && m_playerPhysics->onGround())
     {
-        gameObject.accel.y = -jumpAccel;
-        gameObject.vel.y = -jumpVel;
+        gameObject.setAccelerationY(-jumpAccel);
+        gameObject.setVelocityY(-jumpVel);
         m_playerPhysics->setOnGround(false);
         if (m_previousDirection == SDL_SCANCODE_A)
         {
-            m_animator.setAnimation("jump_right"); 
+            m_animator.setAnimation("jump_right");
         }
         else if (m_previousDirection == SDL_SCANCODE_D)
         {
-            m_animator.setAnimation("jump_left"); 
+            m_animator.setAnimation("jump_left");
         }
     }
 
     if (!m_playerPhysics->onGround())
     {
-        if(m_previousDirection == SDL_SCANCODE_A)
+        if (m_previousDirection == SDL_SCANCODE_A)
         {
-           m_animator.setAnimation("jump_right"); 
+            m_animator.setAnimation("jump_right");
         }
-        if(m_previousDirection == SDL_SCANCODE_D)
+        if (m_previousDirection == SDL_SCANCODE_D)
         {
-           m_animator.setAnimation("jump_left"); 
+            m_animator.setAnimation("jump_left");
         }
     }
 }
 
 void PlayerInputComponent::idle(const unsigned char *keys)
 {
-    if(!keyPressed(keys) && m_playerPhysics->onGround())
+    if (!keyPressed(keys) && m_playerPhysics->onGround())
     {
         if (m_previousDirection == SDL_SCANCODE_A)
         {
@@ -97,9 +98,8 @@ void PlayerInputComponent::update(GameObject &gameObject)
     const auto *currentKeyStates = SDL_GetKeyboardState(nullptr);
     constexpr auto defaultAccel = 800;
 
-    gameObject.accel.y = defaultAccel;
-    gameObject.accel = math::Vec2f{0, gameObject.accel.y};
-    gameObject.vel = math::Vec2f{0, gameObject.vel.y};
+    gameObject.setAccelerationY(defaultAccel);
+    gameObject.setVelocityX(0);
 
     walk(currentKeyStates, gameObject);
     jump(currentKeyStates, gameObject);

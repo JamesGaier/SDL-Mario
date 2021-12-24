@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.hpp"
+#include "Camera.hpp"
 #include <SDL.h>
 
 namespace smb

@@ -2,6 +2,7 @@
 set(
     MARIO_SRCS 
     ${CMAKE_SOURCE_DIR}/src/Animator.cpp
+    ${CMAKE_SOURCE_DIR}/src/Camera.cpp
     ${CMAKE_SOURCE_DIR}/src/Game.cpp
     ${CMAKE_SOURCE_DIR}/src/GameObject.cpp
     ${CMAKE_SOURCE_DIR}/src/Level.cpp

@@ -6,7 +6,7 @@
 namespace smb
 {
 
-PlayerPhysicsComponent::PlayerPhysicsComponent(std::vector<std::unique_ptr<GameObject>> &world) : m_world{world}
+PlayerPhysicsComponent::PlayerPhysicsComponent(std::vector<std::unique_ptr<GameObject>> &world, Camera &camera) : m_world{world}, m_camera{camera}
 {
 }
 
@@ -22,11 +22,11 @@ bool intersects(const math::Rect &lhs, const math::Rect &rhs)
            lhs.pos.y < rhs.pos.y + rhs.size.y && lhs.pos.y + lhs.size.y > rhs.pos.y;
 }
 
-GameObject *PlayerPhysicsComponent::checkCollision(const GameObject &go)
+GameObject *PlayerPhysicsComponent::checkCollision(GameObject &go)
 {
     for (const auto &obj : m_world)
     {
-        if (go.ID != obj->ID && intersects(go.boundingBox, obj->boundingBox))
+        if (go.ID != obj->ID && intersects(go.getBoundingBox(), obj->getBoundingBox()))
         {
             return obj.get();
         }
@@ -37,53 +37,53 @@ GameObject *PlayerPhysicsComponent::checkCollision(const GameObject &go)
 
 void PlayerPhysicsComponent::move(GameObject &go, const float dt)
 {
-    go.vel.x += go.accel.x * dt;
-    go.boundingBox.pos.x += go.vel.x * dt + 0.5 * go.accel.x * dt * dt;
+    m_camera.update(go);
+    go.setVelocityX(go.getVelocityX() + go.getAccelerationX() * dt);
+    go.setPositionX(go.getPositionX() + go.getVelocityX() * dt + 0.5f * go.getAccelerationX() * dt * dt);
     auto collisionObjectX = checkCollision(go);
     if (collisionObjectX != nullptr)
     {
-        auto objectPositionX = collisionObjectX->boundingBox.pos.x;
-        auto playerSizeX = go.boundingBox.size.x;
-        if (go.vel.x > 0)
+        auto objectPositionX = collisionObjectX->getPositionX();
+        auto playerSizeX = go.getBoundingBoxSizeX();
+        if (go.getVelocityX() > 0)
         {
-            go.boundingBox.pos.x = objectPositionX - playerSizeX;
-            go.vel.x = 0;
+            go.setPositionX(objectPositionX - playerSizeX);
+            go.setVelocityX(0);
         }
-        else if (go.vel.x < 0)
+        else if (go.getVelocityX() < 0)
         {
-            auto objectSizeX = collisionObjectX->boundingBox.size.x;
-            go.boundingBox.pos.x = objectPositionX + objectSizeX;
-            go.vel.x = 0;
+            auto boundingBox = collisionObjectX->getBoundingBox();
+            auto objectSizeX = boundingBox.size.x;
+
+            go.setPositionX(objectPositionX + objectSizeX);
+            go.setVelocityX(0);
         }
     }
 
-    go.vel.y += go.accel.y * dt;
-    go.boundingBox.pos.y += go.vel.y * dt + 0.5 * go.accel.y * dt * dt;
+    go.setVelocityY(go.getVelocityY() + go.getAccelerationY() * dt);
+    go.setPositionY(go.getPositionY() + go.getVelocityY() * dt + 0.5 * go.getAccelerationY() * dt * dt);
     auto collisionObjectY = checkCollision(go);
     if (collisionObjectY != nullptr)
     {
-        auto objectPositionY = collisionObjectY->boundingBox.pos.y;
-        auto playerSizeY = go.boundingBox.size.y;
-        if (go.vel.y > 0)
+        auto objectPositionY = collisionObjectY->getPositionY();
+        auto playerSizeY = go.getBoundingBoxSizeY();
+        if (go.getVelocityY() > 0)
         {
-            go.boundingBox.pos.y = objectPositionY - playerSizeY;
-            go.vel.y = 0;
+            go.setPositionY(objectPositionY - playerSizeY);
+            go.setVelocityY(0);
             m_onGround = true;
         }
-        else if (go.vel.y < 0)
+        else if (go.getVelocityY() < 0)
         {
-            auto objectSizeY = collisionObjectY->boundingBox.size.y;
-            go.boundingBox.pos.y = objectPositionY + objectSizeY;
-            go.vel.y = 0;
+            auto objectSizeY = collisionObjectY->getBoundingBoxSizeY();
+            go.setPositionY(objectPositionY + objectSizeY);
+            go.setVelocityY(0);
         }
     }
     else
     {
         m_onGround = false;
     }
-
-
-    go.renderBox.pos = math::Vec2f{go.boundingBox.pos.x, go.boundingBox.pos.y};
 }
 
 bool PlayerPhysicsComponent::onGround() const

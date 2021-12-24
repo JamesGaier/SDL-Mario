@@ -3,6 +3,7 @@
 #include "GameObject.hpp"
 #include "SDL_render.h"
 #include "Util.hpp"
+#include "Camera.hpp"
 #include <memory>
 #include <vector>
 
@@ -21,9 +22,12 @@ class Level
     constexpr static auto BLOCK_SIZE = 32;
     constexpr static auto MARIO_WIDTH = 32;
     constexpr static auto MARIO_HEIGHT = 64;
+    constexpr static int m_levelWidth = 1696;
+    constexpr static int m_levelHeight = 960;
 
     World m_level;
     SDL_Renderer *m_renderer;
+    Camera m_camera;
 
     std::unique_ptr<GameObject> makeGround(float x, float y);
 

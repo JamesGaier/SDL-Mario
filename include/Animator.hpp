@@ -19,10 +19,14 @@ class Animator
 
     void setAnimation(const std::string &name);
 
-    void renderAnimation(math::Rect &scaleRect);
+    void renderAnimation();
+
+    SDL_Rect getFrame() const
+    {
+        return m_frames.at(m_currentFrame / speed);
+    }
 
   private:
-    ImageRenderer m_imageRenderer;
     SDL_Renderer *m_renderer;
     SDL_Texture *m_spritesheet;
     std::vector<SDL_Rect> m_frames;

@@ -30,15 +30,13 @@ void Animator::setAnimation(const std::string &name)
     }
 }
 
-void Animator::renderAnimation(math::Rect &scaleRect)
+void Animator::renderAnimation()
 {
     if (m_animations.count(m_currentAnimation) != 0)
     {
         auto currentAnimation = m_animations.at(m_currentAnimation);
         int begin = currentAnimation.first * speed;
         int end = currentAnimation.second * speed;
-
-        m_imageRenderer.render(m_renderer, m_spritesheet, m_frames.at(m_currentFrame / speed), scaleRect);
 
         if (m_currentFrame >= end)
         {
@@ -50,5 +48,7 @@ void Animator::renderAnimation(math::Rect &scaleRect)
         }
     }
 }
+
+
 
 } // namespace smb

@@ -2,3 +2,6 @@ build
 .vscode
 .clangd
 compile_commands.json
+MakeFile
+CMakeFiles
+cmake_install.cmake

@@ -11,6 +11,7 @@ find_library(SDL2_image NAME SDL2_image)
 
 add_subdirectory(external)
 add_subdirectory(src)
+add_subdirectory(tests)
 
 add_custom_target(
     copy-compile-commands ALL

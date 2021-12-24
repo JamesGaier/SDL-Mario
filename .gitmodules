@@ -1,8 +1,3 @@
 [submodule "external/SDL"]
 	path = external/SDL
 	url = https://github.com/libsdl-org/SDL.git
-    ignore = untracked
-[submodule "external/SDL_image"]
-	path = external/SDL_image
-	url = https://github.com/libsdl-org/SDL_image.git
-    ignore = untracked

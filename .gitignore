@@ -5,3 +5,5 @@ compile_commands.json
 MakeFile
 CMakeFiles
 cmake_install.cmake
+external/SDL
+external/SDL_image

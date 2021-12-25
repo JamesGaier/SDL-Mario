@@ -20,9 +20,8 @@ jobs:
 
     steps:
 
-    - name: Checkout submodules
-
-      run: git submodule update --init --recursive
+    - name: submodules-init
+      uses: snickerbockers/submodules-init@v4
 
     - uses: actions/checkout@v2
 

@@ -6,10 +6,10 @@ namespace smb
 void ResourceFactory::loadResource(const std::string &coordsFile, const std::string &imageFile,
                                     const std::string &name, SDL_Renderer *renderer)
 {
-    auto tilesStr = read_file(coordsFile);
-    auto tiles = parse_spritesheet(tilesStr);
+    auto tilesStr = file::read_file(coordsFile);
+    auto tiles = file::parse_spritesheet(tilesStr);
 
-    auto *image{loadImage(toAbsolute(imageFile), renderer)};
+    auto *image{file::loadImage(file::toAbsolute(imageFile), renderer)};
     resources.emplace(name, Resource{tiles, image});
 }
 

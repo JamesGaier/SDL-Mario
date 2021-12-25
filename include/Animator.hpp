@@ -1,6 +1,5 @@
 #pragma once
 #include "ImageRenderer.hpp"
-#include "Util.hpp"
 #include <SDL.h>
 #include <map>
 #include <string>

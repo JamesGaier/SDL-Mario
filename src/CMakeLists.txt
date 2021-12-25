@@ -11,7 +11,7 @@ set(
     ${CMAKE_SOURCE_DIR}/src/PlayerPhysicsComponent.cpp
     ${CMAKE_SOURCE_DIR}/src/ResourceFactory.cpp
     ${CMAKE_SOURCE_DIR}/src/StaticTileGraphicsComponent.cpp
-    ${CMAKE_SOURCE_DIR}/src/Util.cpp
+    ${CMAKE_SOURCE_DIR}/src/File.cpp
     ${CMAKE_SOURCE_DIR}/src/main.cpp
 )
 
@@ -34,3 +34,4 @@ target_link_libraries(
     SDL2_image
     pthread
 )
+

@@ -2,7 +2,6 @@
 
 #include "GameObject.hpp"
 #include "SDL_render.h"
-#include "Util.hpp"
 #include "Camera.hpp"
 #include <memory>
 #include <vector>

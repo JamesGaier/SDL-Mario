@@ -6,6 +6,7 @@
 #include "PlayerPhysicsComponent.hpp"
 #include "ResourceFactory.hpp"
 #include "StaticTileGraphicsComponent.hpp"
+#include "File.hpp"
 #include <iostream>
 
 namespace smb
@@ -50,8 +51,8 @@ std::unique_ptr<GameObject> Level::makePlayer(float x, float y)
 
 Level::Level(const std::string &path, SDL_Renderer *renderer) : m_renderer{renderer}, m_camera(m_renderer, m_levelWidth, m_levelHeight)
 {
-    auto levelStr = read_file(path);
-    auto levelData = parse_level(levelStr);
+    auto levelStr = file::read_file(path);
+    auto levelData = file::parse_level(levelStr);
 
     ResourceFactory::loadResource("textCoordsStatic.txt", "tiles.png", "static_assets", m_renderer);
     ResourceFactory::loadResource("textCoords.txt", "characters.gif", "player", m_renderer);

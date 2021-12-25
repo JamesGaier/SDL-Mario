@@ -3,4 +3,4 @@
 	url = https://github.com/libsdl-org/SDL.git
 [submodule "external/SDL_image"]
 	path = external/SDL_image
-	url = https://github.com/libsdl-org/SDL_image.git
+	url = https://github.com/JamesGaier/SDL_imageWorking

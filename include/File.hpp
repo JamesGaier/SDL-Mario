@@ -39,7 +39,7 @@ enum class TileColor
 
 namespace file
 {
-    std::string toAbsolute(const std::string &path, const std::string &parent = "../src");
+    std::string toAbsolute(const std::string &path, const std::string &parent = "../res");
     std::string read_file(const std::string &path);
     std::vector<int> parse_coords(const std::string &coords);
     std::vector<std::vector<int>> parse_level(const std::string &level);

@@ -21,7 +21,7 @@ class Level
     constexpr static auto BLOCK_SIZE = 32;
     constexpr static auto MARIO_WIDTH = 32;
     constexpr static auto MARIO_HEIGHT = 64;
-    constexpr static int m_levelWidth = 1696;
+    constexpr static int m_levelWidth = 2048;
     constexpr static int m_levelHeight = 960;
 
     World m_level;
